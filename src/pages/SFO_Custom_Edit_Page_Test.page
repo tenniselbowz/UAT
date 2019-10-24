@@ -1,0 +1,431 @@
+<apex:page tabStyle="Special_Feature_Option__c" lightningStyleSheets="true" sidebar="false" applyBodyTag="false" docType="html-5.0" standardController="Special_Feature_Option__c"
+           extensions="SFO_Custom_Edit_Page_Controller">
+    <style>
+        .slds-scope .slds-input{
+        border: 1px solid rgb(140, 138, 137);
+        }
+        .slds-scope .slds-input{width: 85%;}
+        .lookupInput a { 
+        width: 50px !important ;
+        border: none !important;
+        }
+        .message .messageTable .messageCell {width: 98%;}
+        table.messageTable td:first-child{width:3%}
+        .message .messageText {margin-left: 0px;}
+        .bcrumbsContainer{padding:10px 0px 0px 0px;}
+        .message{margin: 11px 20px;}
+    </style>
+    <script>
+    function validateHour(hour)
+    {
+        if (hour.value == parseInt(hour.value, 10))
+        {
+            
+        }
+        else
+        {
+            alert("Please enter Valid data");
+            hour.value=null;
+        }
+    }
+    </script>
+    <apex:form >
+        
+        <apex:outputPanel >
+            <apex:actionStatus id="actStatusId">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6; height: 100%;opacity:0.65;width:100%;"> 
+                        <div class="waitingHolder" style="width: 91px;">
+                            <img  src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Loading...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:outputPanel>
+        
+        <apex:slds />
+        <div class="slds-scope">
+            <div >
+                <nav role="navigation" aria-label="Breadcrumbs">
+                    <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                        <apex:outputPanel rendered="{!if(sfo_Obj.Id !=null,true,false)}">
+                            <li class="slds-breadcrumb__item"><a href="/{!sfo_Obj.Id}">{!sfo_Obj.Name__c}</a></li>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!if(sfo_Obj.Id ==null,true,false)}">
+                            <li class="slds-breadcrumb__item"><a href="{!retUrl}">Back</a></li>
+                        </apex:outputPanel>
+                        <li class="slds-breadcrumb__item"><a style="cursor: default" href="">SFO Record</a></li>
+                    </ol>
+                </nav>
+            </div>
+            <div>
+                <apex:pageMessages id="error" /> 
+            </div>
+            <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title" style="background: #ddd;">
+                        <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Information</span>
+                    </h3>
+                    <div class="slds-form" role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Name__c.Label}
+                                    <!--<font color="red">*</font>-->
+                                    </span>
+                                    
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" rendered="true" value="{!sfo_Obj.Name__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.OwnerId.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.OwnerId}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <apex:outputPanel rendered="{!showInVersion}">
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Revision_Version__c.Label}</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Revision_Version__c }"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <span class="slds-form-element__label">Record Type</span>
+                                        <div class="slds-form-element__control">
+                                           <div class="slds-form-element__static">
+                                               <!--apex:outputPanel rendered="{!record_type}"-->
+                                                   <apex:outputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.RecordType.Name }"/>
+                                               <!--/apex:outputPanel-->
+                                               </div>
+                                            <!--<div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.RecordType.Name}"/>
+                                        </div>-->
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="slds-form__row">
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Revision_date__c.Label}</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Revision_date__c }"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="slds-form__item " role="listitem">
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <span class="slds-form-element__label">
+                                            {!$ObjectType.Special_Feature_Option__c.fields.Option_Parent__c.Label}
+                                        <font color="red">*</font></span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <apex:inputField styleClass="slds-input slds-combobox__input"  value="{!sfo_Obj.Option_Parent__c}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Status__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Status__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                      
+                       
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Component_Name__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Component_Name__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                                   </div>
+                             <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Notes__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Notes__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                      
+                       
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Section_Name__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Section_Name__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                                   </div>
+                            <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Entry_Date__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Entry_Date__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Format_Name__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Format_Name__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </apex:outputPanel>
+                </div>
+            </div>
+        </div> 
+        <!-- @END:Informatio-->
+          <!-- 
+        <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title" style="background: #ddd;">
+                    <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Other Info</span>
+                </h3>
+                <div class="slds-form" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <span class="slds-form-element__label">
+                                    {!$ObjectType.Special_Feature_Option__c.fields.Parent_SFO__c.Label}
+                                    <font color="red">*</font>
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Parent_SFO__c}" rendered="{!!showInVersion}" required="true" />
+                                        <apex:outputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Parent_Name__c}" rendered="{!showInVersion}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <apex:outputPanel rendered="{!showInVersion}">
+                                    <span class="slds-form-element__label">
+                                        {!$ObjectType.Special_Feature_Option__c.fields.Base_Unit_to_be_Modified__c.Label}
+                                        <font color="red">*</font>
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Format_Name__c}"/>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-form__row">
+                        <div class="slds-form__item" role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <span class="slds-form-element__label">
+                                    {!$ObjectType.Special_Feature_Option__c.fields.Entry_Date__c.Label}
+                                    <font color="red">*</font>
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Entry_Date__c}" required="true" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item " role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <span class="slds-form-element__label">{!$ObjectType.Special_Feature_Option__c.fields.Notes__c.Label}</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <apex:inputField styleClass="slds-input slds-combobox__input" value="{!sfo_Obj.Notes__c}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div> -->
+        <!-- @END:Other Info-->
+         
+        <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title" style="background: #ddd;">
+                    <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Dynamic Fields Information</span>
+                </h3>
+                <div class="slds-grid">
+                    <div class="slds-col "  >
+                        <!--div class="slds-grid slds-grid_vertical"-->
+                        <apex:repeat value="{!dynamicWrapperList}" var="dynamicField">
+                            <div class="slds-form" role="list">
+                                <apex:outputPanel rendered="{!if(dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Text',true,false)}">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_horizontal">
+                                                <span class="slds-form-element__label">
+                                                    {!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Name}
+                                                    <font color="red"><apex:outputText rendered="{!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c}" value="*" /></font>
+                                                </span>
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-form-element__static">
+                                                        <apex:inputfield styleClass="slds-input slds-combobox__input"
+                                                                         value="{!dynamicField.sfo_dynamic_field_obj.Field_Value__c}"
+                                                                         required="{!if(dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!if(dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Number',true,false)}">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_horizontal">
+                                                <span class="slds-form-element__label">
+                                                    {!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Name}
+                                                    <font color="red"><apex:outputText rendered="{!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c}" value="*" /></font>
+                                                </span>
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-form-element__static">
+                                                        <apex:inputfield styleClass="slds-input slds-combobox__input"
+                                                                         value="{!dynamicField.sfo_dynamic_field_obj.Field_Value__c}"
+                                                                         required="{!if(dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}" 
+                                                                         onchange="validateHour(this)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                                <apex:outputPanel rendered="{!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Picklist'}">
+                                    <div class="slds-form__row">
+                                        <div class="slds-form__item" role="listitem">
+                                            <div class="slds-form-element slds-form-element_horizontal">
+                                                <span class="slds-form-element__label">
+                                                    {!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Name}
+                                                    <font color="red"><apex:outputText rendered="{!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c}" value="*" /></font>
+                                                </span>
+                                                <div class="slds-form-element__control">
+                                                    <div class="slds-form-element__static">
+                                                        <apex:selectList styleClass="slds-input slds-combobox__input" size="1" value="{!dynamicField.sfo_dynamic_field_obj.Field_Value__c}"
+                                                                         required="{!if(dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}" >
+                                                            <apex:selectOptions value="{!dynamicField.dynamiclistEntries}"></apex:selectOptions>
+                                                        </apex:selectList>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </apex:outputPanel>
+                            </div>
+                        </apex:repeat>
+                        <!--/div-->
+                    </div>
+                    
+                    <div class="slds-col ">
+                        <!--div class="slds-grid slds-grid_vertical"-->
+                        <apex:repeat value="{!dynamicWrapperList2}" var="dynamicField">
+                            <apex:outputPanel rendered="{!if(dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Text' || dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Number',true,false)}">
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_horizontal">
+                                            <span class="slds-form-element__label">
+                                                {!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Name}
+                                                <font color="red"><apex:outputText rendered="{!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c}" value="*" /></font>
+                                            </span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    <apex:inputfield styleClass="slds-input slds-combobox__input"
+                                                                     value="{!dynamicField.sfo_dynamic_field_obj.Field_Value__c}"
+                                                                     required="{!if(dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                            <apex:outputPanel rendered="{!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Picklist'}">
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item" role="listitem">
+                                        <div class="slds-form-element slds-form-element_horizontal">
+                                            <span class="slds-form-element__label">
+                                                {!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Name}
+                                                <font color="red"><apex:outputText rendered="{!dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c}" value="*" /></font>
+                                            </span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    <apex:selectList styleClass="slds-input slds-combobox__input" size="1" value="{!dynamicField.sfo_dynamic_field_obj.Field_Value__c}"
+                                                                     required="{!if(dynamicField.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}" >
+                                                        <apex:selectOptions value="{!dynamicField.dynamiclistEntries}"></apex:selectOptions>
+                                                    </apex:selectList>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </apex:outputPanel>
+                        </apex:repeat>
+                        <!--/div-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END:Additional Information-->
+        <div>
+            <apex:pageMessages id="error1" /> 
+        </div>
+        <div align="center">
+            <apex:commandButton styleClass="slds-button slds-button_neutral" style="margin-top:1%" value="Save" reRender="error,error1" status="actStatusId" action="{!saveSFO}" />
+            <!--apex:commandButton immediate="true" styleClass="slds-button slds-button_neutral" style="margin-top:1%" value="Cancel" action="{!cancel}" /-->
+        </div>
+    </div>
+</apex:form>
+</apex:page>

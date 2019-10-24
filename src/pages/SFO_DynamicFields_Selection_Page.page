@@ -1,0 +1,375 @@
+<apex:page StandardController="Special_Feature_Option__c" extensions="SFO_DynamicFields_Selection" lightningStyleSheets="true"
+           sidebar="false" title="Dynamic Fields Selection">
+    <head>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript">
+        function checkAll(ccb){
+            //alert(ccb);
+            var inputElem = document.getElementsByTagName("input");
+            for(var i=0; i<inputElem.length; i++){
+                if(inputElem[i].id.indexOf("checkbox")!=-1)
+                    inputElem[i].checked =ccb.checked;
+            }
+        }
+        </script>
+        <style type="text/css">
+            .slds-scope img {
+            max-width: 100%;
+            height: fit-content;
+            }
+            
+            .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            padding: 3%;
+            /* These are the 3 css properties you will need to change so the popup 
+            displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can add 
+            the height property for a fixed size pop up if you want.*/
+            width: 70%;
+            margin-left: -500px;
+            top:100px;
+            
+            }
+            .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+            }
+            
+        </style>
+    </head>
+    <apex:slds />
+    <apex:form id="form" style="margin-left:2%;margin-top:2%">
+        
+        
+        <div>
+            <nav role="navigation" aria-label="Breadcrumbs">
+                <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                    <apex:outputPanel rendered="{!if(sfo_Obj.Id !=null,true,false)}">
+                        <li class="slds-breadcrumb__item"><a href="/{!sfo_Obj.Id}">{!sfo_Obj.Name}</a></li>
+                    </apex:outputPanel>
+                    <li class="slds-breadcrumb__item"><a style="cursor: default" href="">SFO Dynamic Fields Selection</a></li>
+                </ol>
+            </nav>
+        </div>
+        <div>
+            <apex:pageMessages id="error" /> 
+        </div>
+        <apex:outputPanel id="outerPanel">
+            <script>
+            $(document).ready(function() {
+                $('#example').DataTable( {
+                    "paging":   false
+                } );
+            } );
+            
+            </script>
+            <apex:outputPanel rendered="{! !isNext}">
+                <div class="slds-grid slds-grid_vertical">
+                    <div class="slds-grid slds-gutters">
+                        
+                        <div class="slds-col slds-col slds-size_2-of-3" style="padding-top:20px">
+                            <span style="font-weight:bold">
+                                Select Dynamic Fields
+                            </span>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-grid slds-gutters">
+                        
+                        <div class="slds-col slds-size_10-of-12" style="padding:20px">
+                            <div style="margin: 20px 0px 0px 30px:margin:left">
+                                <span style="font-weight:bold">
+                                    Show
+                                </span>
+                                <apex:selectList id="listSize" value="{!list_size}" size="1">
+                                    <apex:selectOption itemValue="10" itemLabel="10"/>
+                                    <apex:selectOption itemValue="20" itemLabel="20"/>
+                                    <apex:selectOption itemValue="50" itemLabel="50"/>
+                                    <apex:selectOption itemValue="100" itemLabel="100"/>
+                                    <apex:actionSupport event="onchange"  reRender="outerPanel,myButtons,error"
+                                                        status="actStatusId" />
+                                </apex:selectList> 
+                                <span style="font-weight:bold">
+                                    Entries
+                                </span>
+                            </div>
+                            <span>
+                                <table id="example" class="slds-table slds-table--bordered slds-table--cell-buffer" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"> 
+                                                <div class="slds-truncate">
+                                                    <input type="checkbox" onclick="checkAll(this);" style="border-width: 1px;border-style: solid;" class="regular-checkbox big-checkbox"/>
+                                                </div>
+                                            </th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Data Type</th>
+                                            <th scope="col">Required</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <apex:repeat value="{!DynamicFields}" var="f" >
+                                            <tr>
+                                                <td>
+                                                    <apex:inputCheckbox id="checkbox" value="{!f.isSelected}" style="border-width: 1px;border-style: solid;"/>
+                                                </td>
+                                                <td>{!f.sfo_field_rec.Name}</td>
+                                                <td>{!f.sfo_field_rec.Field_Data_Type__c}</td>
+                                                <td><!--<apex:image value="{!$Resource.checkmark}" style="width:10%;height:7%"
+rendered="{!f.sfo_field_rec.Required__c}" />-->
+                                                    {!f.sfo_field_rec.Required__c}
+                                                </td>
+                                            </tr>
+                                        </apex:repeat>
+                                    </tbody>
+                                </table>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-12">
+                        </div>
+                    </div>
+                </div>
+                <apex:outputPanel id="myButtons">
+                    <apex:outputPanel style="margin-right:13px;float:right">
+                        <apex:commandButton action="{!Beginning}" style="border:2px solid #167F92;border-radius: 8px;padding:4px 15px;font-size:14px;" styleClass="slds-button slds-button--neutral" title="Beginning" value="<< First" disabled="{!disablePrevious}" reRender="outerPanel,myButtons,error"/>
+                        <apex:commandButton action="{!Previous}"  style="border:2px solid #167F92;border-radius: 8px;padding:4px 15px;font-size:14px;" styleClass="slds-button slds-button--neutral" title="Previous" value="< Previous" disabled="{!disablePrevious}" reRender="outerPanel,myButtons,error"/>        
+                        <apex:commandButton action="{!Next}" style="border:2px solid #167F92;border-radius: 8px;padding:4px 15px;font-size:14px;" styleClass="slds-button slds-button--neutral" title="Next" value="Next >" disabled="{!disableNext}" reRender="outerPanel,myButtons,error"/>
+                        <apex:commandButton action="{!End}" style="border:2px solid #167F92;border-radius: 8px;padding:4px 15px;font-size:14px;" styleClass="slds-button slds-button--neutral" title="End" value=" Last >>" disabled="{!disableNext}" reRender="outerPanel,myButtons,error"/> 
+                    </apex:outputPanel>
+                    <apex:outputPanel >
+                        <div style="text-align: center;margin-top:0px">
+                            <div style="display: inline-block;padding:10px 2px ">
+                                <apex:commandButton action="{!gotoNext}" onclick="getSelectedRows();"
+                                                    styleClass="slds-button slds-button_neutral"
+                                                    value="Next" />
+                            </div>
+                            <div style="display: inline-block">
+                                <apex:commandButton action="{!showPopup}" rerender="tstpopup" styleClass="slds-button slds-button_brand"
+                                                    value="Add New Field" />
+                            </div>
+                        </div>
+                    </apex:outputPanel>
+                </apex:outputPanel> 
+            </apex:outputPanel>
+            
+            
+            <apex:outputPanel rendered="{!isNext}">
+                <div class="slds-grid slds-grid_vertical">
+                    <div class="slds-grid slds-gutters">
+                        
+                        <div class="slds-col slds-col slds-size_2-of-6" style="padding-top:20px;text-align:center">
+                            <span style="font-weight:bold">
+                                Selected Fields
+                            </span>
+                        </div>
+                    </div>
+                    <div class="slds-grid slds-gutters">
+                        
+                        <div class="slds-col slds-col slds-size_2-of-6"  style="padding-top:20px;text-align:center">
+                            <span><table style="padding:10px">
+                                <thead>
+                                    <tr>
+                                        <th style="padding: 10px;">Name</th>
+                                        <th style="padding: 10px;">Data Type</th>
+                                        <th style="padding: 10px;">Required</th>
+                                    </tr>
+                                </thead> 
+                                <tbody>
+                                    <apex:repeat value="{!selectedFeldsList}" var="sf" >
+                                        <tr>
+                                            <td style="padding: 10px;">{!sf.Name}</td>
+                                            <td style="padding: 10px;">{!sf.Field_Data_Type__c}</td>
+                                            <td style="padding: 10px;">{!sf.Required__c}
+                                                <!--<apex:image value="{!$Resource.checkmark}" height="10" width="30"
+rendered="{!sf.Required__c}" />-->
+                                                
+                                            </td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                                </table>
+                            </span>
+                        </div>
+                        <div class="slds-col slds-size_1-of-6">
+                        </div>
+                    </div>
+                    <div class="slds-col slds-grid slds-gutters">
+                        <div class="slds-col slds-size_1-of-3">
+                            
+                        </div>
+                        <div class="slds-col slds-size_1-of-3">
+                            <span><apex:commandButton action="{!gotoPrevious}" styleClass="slds-button slds-button_neutral"
+                                                      value="Previous"/></span>
+                            <span><apex:commandButton action="{!saveFields}" styleClass="slds-button slds-button_brand"
+                                                      value="Save" /></span>
+                        </div>
+                    </div>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        <apex:outputPanel id="tstpopup">
+            <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block" rendered="{!displayPopUp}">
+                <div style="text-align:center">
+                    <span style="fon-weight:bold;font-size:18px">New SFO Dynamic Field</span>
+                </div>
+                
+                <div class="slds-grid">
+                    <div class="slds-col "  >
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">
+                                        Field Label
+                                        <font color="red"><apex:outputText value="*" /></font>
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputfield styleClass="slds-input slds-combobox__input"
+                                                             value="{!newSFOField.Name}" required="true" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col "  >
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">
+                                        Field Data Type
+                                        <font color="red"><apex:outputText value="*" /></font>
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputfield styleClass="slds-input slds-combobox__input"
+                                                             value="{!newSFOField.Field_Data_Type__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid" >
+                    <div class="slds-col ">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">
+                                        Field Length
+                                    </span>
+                                    <div class="slds-form-element__control" >
+                                        <div class="slds-form-element__static">
+                                            <apex:inputfield styleClass="slds-input slds-combobox__input"
+                                                             value="{!newSFOField.Field_Length__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col "  >
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    
+                                    <span class="slds-form-element__label">
+                                        Active
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputCheckbox selected="true" value="{!newSFOField.IsActive__c}" />
+                                            <!-- <apex:inputfield value="{!newSFOField.IsActive__c}" selected="true" /> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col "  >
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">
+                                        Picklist Entries
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputfield styleClass="slds-input slds-combobox__input"
+                                                             value="{!newSFOField.Picklist_Entries__c}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col "  >
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">
+                                        Required
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <apex:inputfield value="{!newSFOField.Required__c}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col "  >
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">
+                                        Formula Editor
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputfield styleClass="slds-input slds-combobox__input"
+                                                             value="{!newSFOField.Formula_Editor__c}" required="{!IF(newSFOField.Picklist_Entries__c=='Formula', true, false)}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col "  >
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <apex:commandButton value="Close" action="{!closePopup}" rerender="tstpopup" immediate="true"/>
+                <apex:commandButton value="Save" action="{!saveSFOField}" rerender="tstpopup,outerPanel " />
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

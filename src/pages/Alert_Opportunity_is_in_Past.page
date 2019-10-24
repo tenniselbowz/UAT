@@ -1,0 +1,38 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" applyHtmlTag="false" action="{!Display}" standardController="Apttus_Proposal__Proposal__c" extensions="Alert_Opportunity_Past_Controller"> 
+  <html lang="en">
+        <head>
+            <meta charset="UTF-8"/>
+            <title>Active Sales Ordes Alert Message</title>
+            <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"/>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+            <style type="text/css">
+                body{
+                text-align:center;
+                }
+                .bs-example{
+                margin: 10px;
+                }
+                
+                .alert{background: #F60C0C;border-color: #101010;padding:10px;} 
+                .blink_text a{text-decoration:underline;}
+                .blink_text_info{color:#101010;}
+              
+            </style>
+        </head>
+        <body>
+            <apex:outputPanel rendered="{!isNotify}">
+                <div class="bs-example">
+                    <div class="alert alert-alert">
+                        
+                        <span class="blink_text blink_text_info"><strong><u>**OPPORTUNITY CLOSED DATE IS PAST DUE.</u></strong> Update the closed date before making the changes to the Proposal** &nbsp; </span> 
+                        <p></p>
+                    </div>
+                </div>
+            </apex:outputPanel>
+     
+          </body>
+    </html>   
+</apex:page>

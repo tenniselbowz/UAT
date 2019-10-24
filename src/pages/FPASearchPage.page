@@ -1,0 +1,220 @@
+<apex:page standardController="Factory_Pricing_Authorization__c" lightningStylesheets="true"
+           extensions="FPASearchController" sidebar="false" tabStyle="FPA_Search__tab"  >
+    <head>
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+    </head>
+    <apex:form > 
+        <script>
+        
+        function clone(x)
+        {
+            if(!x)
+            {
+                alert('Please select atleast one FPA');
+            }
+        }
+        </script>
+        <div class="slds-scope">
+        <apex:actionFunction name="callSearch" action="{!doSearch}"  reRender="testing" status="actStatusId"/>
+        <apex:actionFunction name="removeValues" action="{!removeValues}"  reRender="testing"/>
+        <apex:actionFunction name="selectRow" action="{!selectWrapper}" reRender="false">
+            <apex:param name="selectedRow" assignTo="{!selectedFPA}" value=""/>
+        </apex:actionFunction>
+        <apex:outputPanel >
+            <apex:actionStatus id="actStatusId">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6; height: 100%;opacity:0.65;width:100%;"> 
+                        <div class="waitingHolder" style="top: 100%; width: 100%;">
+                            <img  src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Fetching info...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:outputPanel>
+        <apex:pageBlock title="Step-1: FPA Search" helpTitle="Help" helpUrl="Help" >
+            
+            
+            <script >
+            function myFunction(){ 
+                var searchval = (document.getElementById('search').value).trim();
+                if(searchval == ''){
+                    alert('Search cannot be empty');
+                }
+                else if(searchval.length < 3)
+                {
+                    alert('Please enter minimum 3 letters');
+                }
+                    else{
+                        
+                        document.getElementById('{!$Component.searchhidden}').value = searchval;
+                        callSearch();
+                    }
+                
+            }
+            
+            function setdata1()
+            {
+                var listofnames = new Array();
+                var inputname = (document.getElementById('search').value).trim();
+                var autoSearch = document.getElementById('{!$Component.autosearch}').checked;
+                if(inputname.length < 3)
+                {
+                    removeValues();
+                }
+                
+                if(inputname.length > 2 && autoSearch)
+                {
+                    document.getElementById('{!$Component.searchhidden}').value = inputname;
+                    callSearch();
+                }
+            }
+            var fpaIds = [];
+            function callSelect(x)
+            {
+                var i;
+                for(i=0; i<fpaIds.length; i++){
+                    if(fpaIds[i] != x){
+                        document.getElementById("radio-"+fpaIds[i]).checked = false;  
+                    }
+                }
+                fpaIds.push(x);
+                selectRow(x);
+            }
+            </script>
+            <!-- input box for seaching-->
+            <table>
+                <tr><td>
+                    <c:ToolTip helpText="Note: You can search with FPA Number, Job Name, Sales Person and Rep office" />
+                    <input list="names" id="search" value="{!searchVal}" onkeyup="setdata1();" />
+                    <apex:commandButton value="Search" onClick="myFunction();" rerender="false"/>
+                    <!--<input type="button" value="Search" onClick="myFunction();" />-->
+                    </td>
+                </tr>
+                <tr><td style="padding:5px">
+                    My FPAs <apex:inputCheckbox value="{!myFPAs}" id="MyFPAs" onchange="	myFunction();" />
+                    </td>
+                </tr>
+                <tr><td style="padding:5px">
+                    Enable Auto Search <apex:inputCheckbox value="{!autoSearch}" id="autosearch" />
+                    </td>
+                </tr>
+                <tr><td style="padding:5px">
+                    <apex:commandbutton action="{!createFPA}" value="Add New FPA" rerender="false" />
+                    </td>
+                </tr>
+            </table>
+            <apex:inputHidden value="{!searchVal}" id="searchhidden" />
+            <apex:pageBlockSection collapsible="true" title="Step-2: Advanced Search" columns="3" id="advancedSection" >
+                <apex:pageblocksectionItem >
+                    FPA
+                    <apex:inputText value="{!FPANumber}" />
+                </apex:pageblocksectionItem>
+                <apex:pageblocksectionItem >
+                    Job Name
+                    <apex:inputText value="{!jobName}" />
+                </apex:pageblocksectionItem>
+                <apex:pageblocksectionItem >
+                    Entry Date
+                    <apex:inputText value="{!EntryDate}" />
+                </apex:pageblocksectionItem>
+                <apex:pageblocksectionItem >
+                    Sales Person
+                    <apex:inputText value="{!SalesPersonName}" />
+                </apex:pageblocksectionItem>
+                <apex:pageblocksectionItem >
+                    Rep Office
+                    <apex:inputText value="{!officeName}" />
+                </apex:pageblocksectionItem>
+                
+                <apex:pageblocksectionItem >
+                    Modifier location
+                    <apex:inputText value="{!location}" />
+                </apex:pageblocksectionItem>
+                
+            </apex:pageBlockSection>
+            <apex:commandButton value="Advanced Search" onClick="myFunction();"
+                                    style="margin-left:40%" reRender="false"  />
+                <apex:commandButton value="Reset Filters" action="{!resetFilters}"
+                                    reRender="testing,advancedSection" status="actStatusId" />
+        </apex:pageBlock>
+        <apex:outputPanel id="testing">
+            <!-- validating search field value total_size -->
+            <apex:pageMessages id="message" />
+            <apex:pageBlock rendered="{!isSearched}" id="searchResults" title="Step-3: Search Results ({!FPA_wrapperlist.size})">
+                <apex:outputpanel rendered="{!FPA_wrapperlist.size = 0}" id="no_results">
+                    <p style="font-size:18px;text-align: center;">
+                        No results found
+                    </p>
+                </apex:outputpanel>
+                
+                <apex:outputPanel rendered="{!FPA_wrapperlist.size > 0}" id="has_results" >
+                    
+                    <script>
+                    $(document).ready(function() {
+                        $('#example').DataTable( {
+                            stateSave: true
+                        } );
+                    } );
+                    </script>
+                    <div style="float: right;padding:4px;">
+                    	<table>
+                            <tr>
+                                <td style="padding:4px;border-left: 1px solid #ade1e6; border-width: 4px;">
+                                    Basic FPA
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding:4px;border-left:1px solid #cdd7da; border-width: 4px;">
+                                    FPA Version
+                                </td>
+                            </tr>
+                        </table>    
+                    </div>
+                    <table id="example"  style="width:100%">
+                        <thead>
+                            <tr>
+                                <th >Select</th>
+                                <th>FPA Number</th>
+                                <th >Job Name</th>
+                                <th >Sales Person</th>
+                                <th >Rep Office</th>
+                                 <th >Base Unit to be Modified</th>
+
+                                <th >Modifier location</th>
+                                <th >Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:repeat value="{!FPA_wrapperlist}" var="x">
+                                <tr style="background-color: {!if(x.fpaObj.Parent_FPA__c = null,'#ade1e6','#cdd7da')};">
+                                    <td>
+                                        <input type="radio" id="radio-{!x.fpaObj.id}" 
+                                               onclick="callSelect('{!x.fpaObj.id}');false;" />
+                                    </td>
+                                    
+                                    <td ><apex:outputLink value="/{!x.fpaObj.id}">{!x.fpaObj.FPA_Number__c} </apex:outputLink></td>
+                                    <td >{!x.fpaObj.Name}</td>
+                                    <td >{!x.fpaObj.Sales_Person_Name__c}</td>
+                                    <td >{!x.fpaObj.Office_Name__c}</td>
+                                    <td >{!x.fpaObj.Base_Unit_to_be_Modified__r.Name}</td>
+                                    
+                                    <td >{!x.fpaObj.Modifier_location__c}</td>
+                                    <td >{!x.fpaObj.Internal_Notes__c}</td>
+                                </tr>
+                                
+                            </apex:repeat>
+                        </tbody>
+                    </table>
+                </apex:outputPanel>
+                <!--apex:pageBlockButtons >
+                    <apex:commandButton action="{!cloneFPA}" value="Clone" oncomplete="clone({!isFPASelected});"
+                                        reRender="alertPanel" rendered="{!FPA_wrapperlist.size > 0}" />
+                </apex:pageBlockButtons-->
+            </apex:pageBlock>
+        </apex:outputPanel>
+        </div>
+    </apex:form>
+</apex:page>

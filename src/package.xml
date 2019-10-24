@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>*</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexComponent</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>AuraDefinitionBundle</name>
+    </types>
+    <types>
+        <members>*</members>
+        <members>APTPS_Bundle_Products_With_Option_Price__c</members>
+        <members>APTPS_Configurable_Variables__c</members>
+        <members>APTPS_Document_Line_Item__c</members>
+        <members>APTS_Products_to_be_excluded_from_margin__c</members>
+        <members>APTTaskTemplate__c</members>
+        <members>APTaskTemplate__c</members>
+        <members>ATT_Jasper_API_REST_Services_Config__c</members>
+        <members>Account</members>
+        <members>AccountContactRole</members>
+        <members>AccountTeamMember</members>
+        <members>Account_Address__c</members>
+        <members>Account_Ranking_Factor__mdt</members>
+        <members>ActionPlanTemplate__c</members>
+        <members>ActionPlan__c</members>
+        <members>Action_Plans_Settings__c</members>
+        <members>Activity</members>
+        <members>Additional_Document__c</members>
+        <members>Address__c</members>
+        <members>Aftermarket_Cost_Center__c</members>
+        <members>Approval_Criteria__c</members>
+        <members>Asset</members>
+        <members>AssetRelationship</members>
+        <members>Asset_Address__c</members>
+        <members>AssistantProgress</members>
+        <members>AuthorizationForm</members>
+        <members>AuthorizationFormConsent</members>
+        <members>AuthorizationFormDataUse</members>
+        <members>AuthorizationFormText</members>
+        <members>Avalara_Log__c</members>
+        <members>Bidder__c</members>
+        <members>Campaign</members>
+        <members>CampaignMember</members>
+        <members>Can_We_Connect__c</members>
+        <members>CanadianProvinces__c</members>
+        <members>Capital_Expenditure__c</members>
+        <members>Case</members>
+        <members>CaseAssetFields__c</members>
+        <members>CaseContactRole</members>
+        <members>Case_Asset__c</members>
+        <members>Case_Plan_Asset__c</members>
+        <members>Case_Plan__c</members>
+        <members>Case_Service_Code__c</members>
+        <members>Case_Snapshot__c</members>
+        <members>Change_Order__c</members>
+        <members>Change_Request__c</members>
+        <members>ChatterActivity</members>
+        <members>Check_List_Header_Template__c</members>
+        <members>Check_List_Header__c</members>
+        <members>Check_List_Item_Template__c</members>
+        <members>Check_List_Item__c</members>
+        <members>Clause__c</members>
+        <members>Clone_Field_Set_To_Clone__mdt</members>
+        <members>CollaborationGroup</members>
+        <members>CollaborationGroupMember</members>
+        <members>Commission__c</members>
+        <members>Competitive_Ananlysis_Decision_Criteria__c</members>
+        <members>Competitor_s_Information__c</members>
+        <members>Contact</members>
+        <members>ContactPointTypeConsent</members>
+        <members>ContactRequest</members>
+        <members>Contact_Address__c</members>
+        <members>Contact_Raking_Factor__mdt</members>
+        <members>Contact_Subscription__c</members>
+        <members>ContentVersion</members>
+        <members>Contract</members>
+        <members>ContractContactRole</members>
+        <members>CountryCodes__c</members>
+        <members>Credit_Pre_Approval_Process_Metadata__mdt</members>
+        <members>Custom_Clone_Child_Object__mdt</members>
+        <members>Custom_Clone_System_Fields__mdt</members>
+        <members>Customer_Documents__c</members>
+        <members>Customer_POs_and_Signed_Documents__c</members>
+        <members>DCW_Country_Id_Map__c</members>
+        <members>DataUseLegalBasis</members>
+        <members>DataUsePurpose</members>
+        <members>Default_Case_RecordType__c</members>
+        <members>DemandPlanning__c</members>
+        <members>Document_Image__c</members>
+        <members>DuplicateRecordItem</members>
+        <members>DuplicateRecordSet</members>
+        <members>EmailMessage</members>
+        <members>Estimate__c</members>
+        <members>Event</members>
+        <members>ExchangeUserMapping</members>
+        <members>Excluded_MAPS_Roles__c</members>
+        <members>Excluded_Product_Code__mdt</members>
+        <members>Expense_Line_Item__c</members>
+        <members>Expense_Report__c</members>
+        <members>ExpressionFilter</members>
+        <members>ExpressionFilterCriteria</members>
+        <members>FPA_Approval__c</members>
+        <members>FPA_Approvers__c</members>
+        <members>FPA_Link__c</members>
+        <members>FPA_Persona__c</members>
+        <members>Factory_Pricing_Authorization__c</members>
+        <members>FeedItem</members>
+        <members>ForecastingCategoryMapping</members>
+        <members>Frequency_of_Payments__c</members>
+        <members>IE_Integration_Field_Set__c</members>
+        <members>IE_Service_Configuration__c</members>
+        <members>Idea</members>
+        <members>Image</members>
+        <members>Individual</members>
+        <members>Input_and_Output_Values__c</members>
+        <members>Integration_Error__c</members>
+        <members>Intel_TAS_Integration_Field_Map__c</members>
+        <members>Intel_TAS_Integration_Setting__c</members>
+        <members>Invoice__c</members>
+        <members>Lead</members>
+        <members>License_Cost_Center__c</members>
+        <members>License_Payments__c</members>
+        <members>License__c</members>
+        <members>Line_Item_Field_to_PLI_Field__mdt</members>
+        <members>MAPS_LOB_Sort_Order__c</members>
+        <members>MAPS_LOB__c</members>
+        <members>MAPS_Reporting__c</members>
+        <members>MA_Bundle_Task_Product_Code__mdt</members>
+        <members>MA_Model__c</members>
+        <members>Macro</members>
+        <members>MacroAction</members>
+        <members>MacroInstruction</members>
+        <members>MacroUsage</members>
+        <members>Milestone_Billing__c</members>
+        <members>Model_Type_Cost__c</members>
+        <members>Office__c</members>
+        <members>Opportunity</members>
+        <members>OpportunityCompetitor</members>
+        <members>OpportunityContactRole</members>
+        <members>OpportunityLineItem</members>
+        <members>OpportunitySplit</members>
+        <members>OpportunityTeamMember</members>
+        <members>Opportunity_Splits_for_Templates__c</members>
+        <members>Oracle_Warranty_REST_Services_Config__c</members>
+        <members>Order__c</members>
+        <members>OrgMetricScanResult</members>
+        <members>OrgMetricScanSummary</members>
+        <members>PCL_Notification__c</members>
+        <members>PartnerRole</members>
+        <members>Phase_Code_Bucket_Categories__c</members>
+        <members>Pricebook2</members>
+        <members>PricebookEntry</members>
+        <members>Product2</members>
+        <members>Product_Grouping__c</members>
+        <members>Product_To_Category_Check__mdt</members>
+        <members>Product__c</members>
+        <members>Progress_Dates_Milestones__c</members>
+        <members>Progress_Dates__c</members>
+        <members>Project_Member__c</members>
+        <members>Project_Task__c</members>
+        <members>Project__c</members>
+        <members>PromptAction</members>
+        <members>Proposal_MA_Bundle__c</members>
+        <members>Proposal_MA_Task__c</members>
+        <members>Proposal_MA_Tasking__c</members>
+        <members>QuickText</members>
+        <members>QuickTextUsage</members>
+        <members>Quote</members>
+        <members>QuoteLineItem</members>
+        <members>Quote_LOB_To_Clause_Record_Type__c</members>
+        <members>Recommendation</members>
+        <members>RecordAction</members>
+        <members>RecordMergeHistory</members>
+        <members>RecordType__c</members>
+        <members>RecordTypes__mdt</members>
+        <members>Related_SFO__c</members>
+        <members>RequestsForAccessSIQ</members>
+        <members>Revisions__c</members>
+        <members>SFO_Dynamic_Fields__c</members>
+        <members>SFO_Fields__c</members>
+        <members>Sales_Rep_Quota__c</members>
+        <members>Scorecard</members>
+        <members>ScorecardAssociation</members>
+        <members>ScorecardMetric</members>
+        <members>Service_Code_Junction__c</members>
+        <members>Service_Code__c</members>
+        <members>Site</members>
+        <members>SocialPersona</members>
+        <members>SocialPost</members>
+        <members>Solution</members>
+        <members>Special_Feature_Option__c</members>
+        <members>Ssr_Tracker_Snapshot__c</members>
+        <members>Stakeholder__c</members>
+        <members>StateCodes__c</members>
+        <members>StreamActivityAccess</members>
+        <members>StreamingChannel</members>
+        <members>Subscription__c</members>
+        <members>TRC_PLC_Codes__c</members>
+        <members>Task</members>
+        <members>TaxConnectorConfig__c</members>
+        <members>Test_App_Label__c</members>
+        <members>Time_Log__c</members>
+        <members>Topic</members>
+        <members>TopicAssignment</members>
+        <members>Tracker__c</members>
+        <members>User</members>
+        <members>UserProvisioningRequest</members>
+        <members>User_Departments__c</members>
+        <members>Valid_Business_Reason_Factor__mdt</members>
+        <members>Value_Bucket__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Case_Asset_Populate_TRC_Group_PLC_Bucket</members>
+        <members>Case_Asset_Updated</members>
+        <members>Case_Currency_set_to_that_of_Accont</members>
+        <members>Contact_IE_Contact_Subscription_Created</members>
+        <members>Contact_IE_Subscription_Active</members>
+        <members>Contact_IE_Subscription_Active-4</members>
+        <members>Contact_IE_Subscription_Active-5</members>
+        <members>Create_Sightline_Backlog_Item_from_Closed_Case</members>
+        <members>Create_Sightline_Backlog_Item_from_Closed_Case-1</members>
+        <members>Create_Sightline_Backlog_Item_from_Closed_Case-2</members>
+        <members>Create_Sightline_Backlog_Item_from_Closed_Case-3</members>
+        <members>Create_Sightline_Backlog_Item_from_Closed_Case-4</members>
+        <members>Credit_Pre_Approval_Process</members>
+        <members>DSO_Bid_Date_is_Changed</members>
+        <members>DSO_Oppty_Closed_Lost_or_Abandoned_and_over_100k</members>
+        <members>DSO_Oppty_Closed_Lost_or_Abandoned_and_over_100k-1</members>
+        <members>DSO_Oppty_Closed_Lost_or_Abandoned_and_over_100k-3</members>
+        <members>DSO_Oppty_Closed_Lost_or_Abandoned_and_over_100k-4</members>
+        <members>Direct_Sales_Closed_Lost_Abandoned_100k</members>
+        <members>Direct_Sales_Closed_Lost_Abandoned_100k-5</members>
+        <members>Direct_Sales_Closed_Lost_Abandoned_100k-6</members>
+        <members>Finalized_Configuration_on_Proposal</members>
+        <members>LATAM_Opportunity_Won_notification_to_Logistics-1</members>
+        <members>LATAM_Submit_for_Margin_Approval</members>
+        <members>LATAM_Submit_for_Reserve_Approval-1</members>
+        <members>LA_Apts_Submit_for_Margin_Approval-1</members>
+        <members>LA_Apts_Submit_for_Reserve_Approval-1</members>
+        <members>LA_Change_Request_Process-1</members>
+        <members>LA_Change_Request_Process_Updated-1</members>
+        <members>Link_Primary_Quote_Proposal_to_Opportunity</members>
+        <members>Link_Primary_Quote_Proposal_to_Opportunity-1</members>
+        <members>Link_Primary_Quote_Proposal_to_Opportunity-2</members>
+        <members>Link_Primary_Quote_Proposal_to_Opportunity-3</members>
+        <members>Make_Primary_updates_Proposal_Close_Date</members>
+        <members>NA_CUPS_to_be_Filled_In-1</members>
+        <members>NA_Change_Request_Process</members>
+        <members>NA_Change_Request_Process-2</members>
+        <members>NA_Change_Request_Status_Process-1</members>
+        <members>Opp_CUPS_DM_ROSM_Field_update_and_Notification-1</members>
+        <members>Opp_CUPS_DM_ROSM_Field_update_and_Notification-2</members>
+        <members>Opp_CUPS_DM_ROSM_Field_update_and_Notification-3</members>
+        <members>Opportunity_Closed_won-1</members>
+        <members>Opportunity_close_date_update_Quote_close_date</members>
+        <members>Populate_Case_with_Backlog_Item</members>
+        <members>Populate_Case_with_Backlog_Item-1</members>
+        <members>Populate_Name_or_Description_on_MA_Tasking</members>
+        <members>Quote_Close_Date-1</members>
+        <members>Quote_Proposal_Adjustment_Amount</members>
+        <members>Quote_Proposal_Reserve_Approval_Process</members>
+        <members>Quote_Proposal_Reserve_Approval_Process-1</members>
+        <members>Quote_is_5k_and_is_Closed_Won-2</members>
+        <members>Quote_is_5k_and_is_Closed_Won-3</members>
+        <members>Quote_is_5k_and_is_Closed_Won-4</members>
+        <members>RF_Convert_Self_Service_Impact_and_Urgency_Questions</members>
+        <members>RF_Convert_Self_Service_Impact_and_Urgency_Questions-1</members>
+        <members>RF_Convert_Self_Service_Impact_and_Urgency_Questions-2</members>
+        <members>RF_Convert_Self_Service_Urgency_Questions</members>
+        <members>RF_Convert_Self_Service_Urgency_Questions-1</members>
+        <members>RF_Convert_Self_Service_Urgency_Questions-2</members>
+        <members>RF_Convert_Self_Service_Urgency_Questions-3</members>
+        <members>RF_Populate_Cust_Response_Requested_Checkbox-1</members>
+        <members>RF_Populate_Cust_Response_Requested_Checkbox-2</members>
+        <members>RF_Set_Impact_and_Urgency_to_3_on_Incident_created_via_email</members>
+        <members>Reset_Proposal_Approval</members>
+        <members>Reset_Proposal_Approval-1</members>
+        <members>Reset_Proposal_Approval-2</members>
+        <members>Reset_Proposal_Approval-3</members>
+        <members>Reset_Proposal_Approval-4</members>
+        <members>Reset_Proposal_Approval-5</members>
+        <members>Reset_Proposal_Approval-7</members>
+        <members>Reset_Proposal_Approval-8</members>
+        <members>Sightline_Requirements_Change_notifies_Team-1</members>
+        <members>Stamp_Serial_Number_on_Claim</members>
+        <members>Tech_Tip_Lead_Conversion</members>
+        <members>Tech_Tip_Lead_Conversion-6</members>
+        <members>Update_Approovers_When_Proposal_Owner_Changes</members>
+        <members>Update_Opportunity_Stae</members>
+        <members>Update_Opportunity_Stae-2</members>
+        <members>Update_Opportunity_Stae-3</members>
+        <members>Update_Opportunity_Stae-4</members>
+        <members>Update_Opportunity_Stae-5</members>
+        <members>Update_Opportunity_Stae-6</members>
+        <members>Warranty_Approvers</members>
+        <members>Warranty_Approvers-1</members>
+        <members>Warranty_Approvers-2</members>
+        <members>Warranty_Case_Updates_on_Asset</members>
+        <members>X5k_and_no_Credit_Authorization</members>
+        <members>X5k_and_no_Credit_Authorization-33</members>
+        <name>Flow</name>
+    </types>
+    <types>
+        <members>APTPS_Document_Line_Item__c-Document Line Item Layout</members>
+        <members>Account-ADMIN</members>
+        <members>Account-DSO - Account Page Layout</members>
+        <members>Account-Daikin Applied</members>
+        <members>AccountContactRole-Account Contact Role Layout</members>
+        <members>AccountTeamMember-Account Team Member Layout</members>
+        <members>Account_Address__c-Account Address Layout</members>
+        <members>Address__c-Address Layout</members>
+        <members>Address__c-SFDC Integration</members>
+        <members>AllowedEmailDomain-Allowed Email Domain Layout</members>
+        <members>Apttus_Proposal__Proposal_Line_Item__c-LA Proposal Line Item Layout</members>
+        <members>Apttus_Proposal__Proposal_Line_Item__c-NA Proposal Line Item Layout</members>
+        <members>Apttus_Proposal__Proposal__c-Latin America Proposal</members>
+        <members>Apttus_Proposal__Proposal__c-North America Credit Proposal Layout</members>
+        <members>Apttus_Proposal__Proposal__c-North America Proposal</members>
+        <members>Asset-Asset Layout</members>
+        <members>Asset-Latin America</members>
+        <members>Asset_Address__c-Asset Address Layout</members>
+        <members>Bidder__c-Bidder Layout</members>
+        <members>Campaign-Campaign Layout</members>
+        <members>Campaign-Latin America</members>
+        <members>CampaignMember-Campaign Member Page Layout</members>
+        <members>CampaignMemberStatus-Campaign Member Status Layout</members>
+        <members>Can_We_Connect__c-Can We Connect Layout</members>
+        <members>Capital_Expenditure__c-Capital Expenditure Layout</members>
+        <members>Case-Application Engineers</members>
+        <members>Case-Case Layout</members>
+        <members>Case-Rep Help Desk</members>
+        <members>Case-SLP Case Layout</members>
+        <members>Case-Salesforce Help</members>
+        <members>Case-Service Operations</members>
+        <members>Case-Service Sales Case Layout</members>
+        <members>Case-TRC</members>
+        <members>Case-WAR Header</members>
+        <members>Case-Warranty</members>
+        <members>CaseClose-Application Engineer Close Case</members>
+        <members>CaseClose-Close Case Layout</members>
+        <members>CaseClose-SLP Close Case Layout</members>
+        <members>CaseClose-Service Sales Close Case Layout</members>
+        <members>CaseInteraction-Case Feed Layout</members>
+        <members>Case_Asset__c-Case Asset Layout</members>
+        <members>Case_Service_Code__c-Case Service Code Layout</members>
+        <members>Case_Snapshot__c-Case Snapshot Layout</members>
+        <members>Change_Order__c-Change Order Layout</members>
+        <members>Change_Request__c-Change Request Layout</members>
+        <members>Change_Request__c-LA User Form</members>
+        <members>Change_Request__c-Latin America</members>
+        <members>Change_Request__c-Product Request Addition</members>
+        <members>Check_List_Header_Template__c-Check List Header Template Layout</members>
+        <members>Check_List_Header__c-Check List Header Layout</members>
+        <members>Check_List_Item_Template__c-Check List Item Template Layout</members>
+        <members>Check_List_Item__c-Check List Item Layout</members>
+        <members>Clause__c-Maintenance Agreement Template Layout</members>
+        <members>Clause__c-Service %26 Repair Template Layout</members>
+        <members>Clause__c-Turnkey Template Layout</members>
+        <members>Clone_Field_Set_To_Clone__mdt-Clone Field Set To Clone Layout</members>
+        <members>CollaborationGroup-Group Layout</members>
+        <members>Commission__c-Commission Layout</members>
+        <members>Commission__c-Independant Sales Rep Info Layout</members>
+        <members>Competitive_Ananlysis_Decision_Criteria__c-Prospect Decision Criteria Layout</members>
+        <members>Competitor_s_Information__c-Competitor Information Layout</members>
+        <members>Contact-ADMIN</members>
+        <members>Contact-Contact Layout</members>
+        <members>Contact-DSO - Contact Page Layout</members>
+        <members>Contact-Latin America</members>
+        <members>Contact-TRC Support</members>
+        <members>Contact_Address__c-Contact Address Layout</members>
+        <members>Contact_Subscription__c-Contact Subscription Layout</members>
+        <members>ContentVersion-Field Service</members>
+        <members>ContentVersion-General</members>
+        <members>Contract-Contract Layout</members>
+        <members>Custom_Clone_Child_Object__mdt-Custom Clone Child Object Layout</members>
+        <members>Custom_Clone_System_Fields__mdt-Custom Clone System Field Layout</members>
+        <members>Customer_Documents__c-Customer Document Layout</members>
+        <members>DemandPlanning__c-Demand Planning Layout</members>
+        <members>Document_Image__c-Document Image Layout</members>
+        <members>DuplicateRecordSet-Duplicate Record Set Layout</members>
+        <members>EmailMessage-Email Message Layout - Email-to-Case</members>
+        <members>Event-Event Layout</members>
+        <members>Event-Latin America</members>
+        <members>Excluded_Product_Code__mdt-Excluded Product Code Layout</members>
+        <members>Expense_Line_Item__c-Expense Line Item Layout</members>
+        <members>Expense_Report__c-Accountant Expense Report Layout</members>
+        <members>Expense_Report__c-Expense Report Layout</members>
+        <members>Expense_Report__c-Saved Expense Report Layout</members>
+        <members>Expense_Report__c-Spyrel Consultant Layout</members>
+        <members>Expense_Report__c-Standard</members>
+        <members>FeedItem-Feed Item Layout</members>
+        <members>Frequency_of_Payments__c-Frequency of Payments Layout</members>
+        <members>Global-Global Layout</members>
+        <members>Global-T-AAH</members>
+        <members>Idea-Idea Layout</members>
+        <members>Integration_Error__c-Integration Error Layout</members>
+        <members>Invoice__c-Bill Layout</members>
+        <members>Invoice__c-Invoice Layout</members>
+        <members>Invoice__c-Milestone Invoice Layout</members>
+        <members>Lead-Latin America</members>
+        <members>Lead-Lead Layout</members>
+        <members>Lead-Owner Sales</members>
+        <members>License__c-License Layout</members>
+        <members>MAPS_Reporting__c-MAPS Reporting Layout</members>
+        <members>MA_Bundle_Task_Product_Code__mdt-MA Bundle Task Product Code Layout</members>
+        <members>MA_Model__c-MA Model Layout</members>
+        <members>Macro-Macro Layout</members>
+        <members>Milestone_Billing__c-Milestone Billing Layout</members>
+        <members>Model_Type_Cost__c-Model Type Cost Layout</members>
+        <members>Opportunity-Latin America - Test DT</members>
+        <members>Opportunity-Latin America Opportunity Apttus Layout</members>
+        <members>Opportunity-Latin America Opportunity Layout</members>
+        <members>Opportunity-North America - National Accounts</members>
+        <members>Opportunity-North America Apttus Layout</members>
+        <members>Opportunity-North America DSO Opportunity Layout</members>
+        <members>Opportunity-North America Opportunity Layout</members>
+        <members>OpportunityLineItem-Latin America</members>
+        <members>OpportunityLineItem-Latin America - Test DT</members>
+        <members>OpportunityLineItem-Latin America Apttus</members>
+        <members>OpportunityLineItem-North America</members>
+        <members>OpportunityLineItem-North America - DSO Opportunity Product</members>
+        <members>OpportunityLineItem-Opportunity Product Layout</members>
+        <members>OpportunitySplit-Opportunity Split Layout</members>
+        <members>OpportunityTeamMember-Opportunity Team Member Layout</members>
+        <members>Opportunity_Splits_for_Templates__c-Opportunity Splits for Template Layout</members>
+        <members>Order__c-Order Layout</members>
+        <members>Outlook-Create Case</members>
+        <members>Phase_Code_Bucket_Categories__c-Phase Code Bucket Categories Layout</members>
+        <members>Pricebook2-North America - DSO</members>
+        <members>Pricebook2-Price Book Layout</members>
+        <members>PricebookEntry-Price Book Entry Layout</members>
+        <members>Product2-Latin America</members>
+        <members>Product2-Product Layout</members>
+        <members>Product_To_Category_Check__mdt-Product To Category Check Layout</members>
+        <members>Progress_Dates_Milestones__c-Progress Dates Milestones Layout</members>
+        <members>Progress_Dates__c-Progress Dates Layout</members>
+        <members>Project_Member__c-Project Team Member Layout</members>
+        <members>Project_Member__c-SpyrelConsultant-Task Team Member</members>
+        <members>Project_Member__c-Task Team Member</members>
+        <members>Project_Task__c-Milestone Layout</members>
+        <members>Project_Task__c-Restricted Layout</members>
+        <members>Project_Task__c-Task Layout</members>
+        <members>Project_Task__c-Tasks Layout</members>
+        <members>Project__c-Milestone Page Layout</members>
+        <members>Project__c-Project Layout</members>
+        <members>Project__c-Staff Augmentation%3A Hourly Layout</members>
+        <members>Proposal_MA_Bundle__c-Proposal MA Bundle Layout</members>
+        <members>Proposal_MA_Task__c-Proposal MA Task Layout</members>
+        <members>Proposal_MA_Tasking__c-Proposal MA Tasking Layout</members>
+        <members>Quote-Latin America</members>
+        <members>Quote-Quote Layout</members>
+        <members>QuoteLineItem-Latin America</members>
+        <members>QuoteLineItem-Quote Line Item Layout</members>
+        <members>Revisions__c-Revision Layout</members>
+        <members>Sales_Rep_Quota__c-Quota Master Layout</members>
+        <members>Scorecard-Scorecard Layout</members>
+        <members>ScorecardAssociation-Scorecard Association Layout</members>
+        <members>ScorecardMetric-Scorecard Metric Layout</members>
+        <members>Service_Code__c-Failure Code Layout</members>
+        <members>Solution-Latin America</members>
+        <members>Solution-Solution Layout</members>
+        <members>Ssr_Tracker_Snapshot__c-Ssr Tracker Snapshot Layout</members>
+        <members>Stakeholder__c-Stakeholder Layout</members>
+        <members>Subscription__c-Subscription Layout</members>
+        <members>Task-Field Service</members>
+        <members>Task-Latin America</members>
+        <members>Task-Task Layout</members>
+        <members>Test_App_Label__c-Test App Label Layout</members>
+        <members>Time_Log__c-Detailed View</members>
+        <members>Time_Log__c-Restricted View</members>
+        <members>Time_Log__c-Spyrel Consultant-Time Log Layout</members>
+        <members>Time_Log__c-Time %26 Materials Log Layout</members>
+        <members>Time_Log__c-Time Log Layout</members>
+        <members>Tracker__c-Tracker Layout</members>
+        <members>User-Chatter User Layout</members>
+        <members>User-User Layout</members>
+        <members>UserAlt-User Profile Layout</members>
+        <members>Value_Bucket__c-Value Bucket Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>ATandT_Jasper_Control_Center_API</members>
+        <members>ApexDevNet</members>
+        <members>ApttusMergeServer</members>
+        <members>ApttusMergeServer2</members>
+        <members>Avalara</members>
+        <members>AvalaraDev</members>
+        <members>DaikinServiceLocator</members>
+        <members>Google_Maps</members>
+        <members>Googleapis_Maps</members>
+        <members>IE_Service_Endpoint</members>
+        <members>IntelTASEndPoint</members>
+        <members>Remedyforce</members>
+        <members>SalesforceLogin</members>
+        <members>Salesforce_Side_Panel</members>
+        <members>Workbox</members>
+        <members>sfLogin</members>
+        <name>RemoteSiteSetting</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>StaticResource</name>
+    </types>
+    <types>
+        <members>Address__c</members>
+        <members>Asset</members>
+        <members>Case</members>
+        <members>Case_Asset__c</members>
+        <members>Change_Request__c</members>
+        <members>Clause__c</members>
+        <members>Contact</members>
+        <members>Integration_Error__c</members>
+        <members>Lead</members>
+        <members>License__c</members>
+        <members>Opportunity</members>
+        <members>OpportunityLineItem</members>
+        <members>Product2</members>
+        <members>Quote</members>
+        <members>QuoteLineItem</members>
+        <members>Sales_Rep_Quota__c</members>
+        <members>Subscription__c</members>
+        <members>Task</members>
+        <name>Workflow</name>
+    </types>
+    <version>39.0</version>
+</Package>

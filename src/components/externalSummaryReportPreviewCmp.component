@@ -1,0 +1,65 @@
+<apex:component controller="externalSummaryReportPreviewController" access="global">
+    <apex:attribute name="FPAId" type="String" description="FPAsID" assignTo="{!fpa_ID}"/>
+    <table  style="width:100%" >
+        <tr><td style="width:12%;padding:2px">Date: </td><th style="text-align:left">{!FPA_rec.Created_Date__c}</th></tr>
+        <tr><td style="width:12%;padding:2px">Representative: </td><th style="text-align:left">{!FPA_rec.Sales_Person__r.Name}</th></tr>
+        <tr><td style="width:12%;padding:2px">Attention: </td><th style="text-align:left">{!FPA_rec.Office__r.Name}</th></tr>
+        <tr><td style="width:12%;padding:2px">Job Name: </td><th style="text-align:left">{!FPA_rec.Name}</th></tr>
+        <tr><td style="width:12%;padding:2px">Authorized By: </td><th style="text-align:left">{!FPA_rec.Application_Engineer__r.Name}</th></tr>
+        <tr><td style="width:12%;padding:2px">Phone Number: </td><th style="text-align:left">{!FPA_rec.Phone__c}</th></tr>
+        <tr><td style="width:12%;padding:2px">Product Brand Name: </td><th style="text-align:left">{!FPA_rec.Base_Unit_to_be_Modified__r.Description__c}</th></tr>
+    </table> <br/>
+    
+    <apex:repeat value="{!unitTagMap}" var="unit">
+        <table  style="width:100%" >
+            <td style="width:12%;padding:2px">Unit Tag: -</td><th style="text-align:left">{!fpaLinkMap[unit].name}</th>
+            <td style="width:12%;padding:2px">Quantity: -</td><th style="text-align:left">{!fpaLinkMap[unit].Quantity__c}</th>
+            <td style="width:12%;padding:2px">Lead Time (wks): -</td><th style="text-align:left">{!fpaLinkMap[unit].Lead_Time__c}</th>           
+        </table>
+        <table  style="border-collapse:collapse;width:100%;padding-bottom:10px" >
+            <tr>
+                <th style="border:1px solid black;">
+                    Option Number
+                </th>
+                <th style="border:1px solid black;">
+                    Special Feature
+                </th>              
+                <th style="border:1px solid black;">
+                    Special Feature Description
+                </th>
+                <th style="border:1px solid black;">
+                    List Price
+                </th>
+            </tr>
+            <apex:variable var="totals" value="{!0}"/>
+            <apex:repeat value="{!unitRelatedSFOWrap[unit]}" var="SFO">
+                <tr>
+                    <td style="border:1px solid black;padding:10px;text-align:center">{!SFO.optionName}</td>
+                    <td style="border:1px solid black;padding:10px;text-align:left">{!SFO.specialFeature}</td>
+                    <td style="border:1px solid black;padding:10px;">{!SFO.notes}</td>
+                    <td style="border:1px solid black;padding:10px;">{!SFO.listPrices}</td>
+                </tr>
+                <apex:variable var="totals" value="{! If(SFO.listPrices == 0 ,totals,totals+SFO.listPrices)}"/>
+            </apex:repeat>
+            <tr>
+                <th style="border:1px solid black;">
+                    
+                </th>
+                <th style="border:1px solid black;">
+                    
+                </th>
+                <th style="border:1px solid black;">
+                    Total
+                </th>
+                <th style="border:1px solid black;">
+                    <apex:outputText value="{!totals}" />
+                </th>
+            </tr>
+        </table>
+        <br/><br/>
+    </apex:repeat>
+    <table  style="width:100%" >
+        <tr><td style="width:12%;padding:2px"><b>Notes</b> </td></tr>
+        <tr><td style="width:6%;padding:2px">Description: </td><th style="text-align:left">{!FPA_rec.Description__c}</th></tr>
+    </table> <br/>
+</apex:component>

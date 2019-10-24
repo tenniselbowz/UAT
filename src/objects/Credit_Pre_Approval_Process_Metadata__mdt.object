@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This will use for pass Credit Pre Approval Process Id dynamically in Update  Reject comments functionality</description>
+    <fields>
+        <fullName>Approval_Id__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Approval Id</label>
+        <length>20</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Credit Pre Approval Process Metadata</label>
+    <pluralLabel>Credit Pre Approval Process Metadatas</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

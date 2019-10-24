@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestsResultsCache
+    LastClearTime="2019-07-15T22:41:02.1466707Z">
+    <TestClassesCache>
+        <TestClassCache>
+            <TestClassId>01p1A000000xnYlQAI</TestClassId>
+            <TestQueueId>7090R000000aOcxQAE</TestQueueId>
+            <TestMethodsCache>
+                <TestMethodCache>
+                    <Name>test_SubscriptionDeleteTrigger</Name>
+                    <TestResultStatus>Pass</TestResultStatus>
+                </TestMethodCache>
+                <TestMethodCache>
+                    <Name>test_SubscriptionInsertTrigger</Name>
+                    <TestResultStatus>Pass</TestResultStatus>
+                </TestMethodCache>
+                <TestMethodCache>
+                    <Name>testBatch_IE_Subscription_Notification_Sched</Name>
+                    <TestResultStatus>Pass</TestResultStatus>
+                </TestMethodCache>
+                <TestMethodCache>
+                    <Name>testBatchExecution</Name>
+                    <TestResultStatus>Pass</TestResultStatus>
+                </TestMethodCache>
+                <TestMethodCache>
+                    <Name>testBatchExecution_ContactWithMultipleSubscriptions</Name>
+                    <TestResultStatus>Pass</TestResultStatus>
+                </TestMethodCache>
+                <TestMethodCache>
+                    <Name>testBatchExecution_ExceptionThrown</Name>
+                    <TestResultStatus>Pass</TestResultStatus>
+                </TestMethodCache>
+                <TestMethodCache>
+                    <Name>testBatchExecution_NoSubscriptions</Name>
+                    <TestResultStatus>Pass</TestResultStatus>
+                </TestMethodCache>
+                <TestMethodCache>
+                    <Name>testBatchExecution_SubscriptionsNotDue</Name>
+                    <TestResultStatus>Pass</TestResultStatus>
+                </TestMethodCache>
+            </TestMethodsCache>
+        </TestClassCache>
+    </TestClassesCache>
+</TestsResultsCache>

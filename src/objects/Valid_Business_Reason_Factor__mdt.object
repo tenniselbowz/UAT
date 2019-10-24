@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Account_Value__c</fullName>
+        <defaultValue>false</defaultValue>
+        <description>Shows weather Account value Hight or Low</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Account Value</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>VBR_FActor_4__c</fullName>
+        <description>Valid Business Reason Factor when we have 4 or more High value Contacts</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>VBR_FActor_4</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VBR_Factor_1__c</fullName>
+        <description>Valid Business Reason Factor when 1 High Contact</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>VBR_Factor_1</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VBR_Factor_2__c</fullName>
+        <description>Valid Business Reason Factor when we have 2 High value Contacts</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>VBR_Factor_2</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VBR_Factor_3__c</fullName>
+        <description>Valid Business Reason Factor when we have 3 High value Contacts</description>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>VBR_Factor_3</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Valid_Business_Reason_Factor__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Valid Business Reason Factor</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Valid_Business_Reason__c</fullName>
+        <externalId>false</externalId>
+        <fieldManageability>DeveloperControlled</fieldManageability>
+        <label>Valid Business Reason</label>
+        <length>255</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Valid Business Reason Factor</label>
+    <listViews>
+        <fullName>Valid_Business_Reason_Factor</fullName>
+        <columns>Valid_Business_Reason__c</columns>
+        <columns>Account_Value__c</columns>
+        <columns>Valid_Business_Reason_Factor__c</columns>
+        <columns>VBR_Factor_1__c</columns>
+        <columns>VBR_Factor_2__c</columns>
+        <columns>VBR_Factor_3__c</columns>
+        <columns>VBR_FActor_4__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>Valid Business Reason Factor</label>
+        <language>en_US</language>
+    </listViews>
+    <pluralLabel>Valid Business Reason Factors</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

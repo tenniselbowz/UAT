@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <allowInChatterGroups>false</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <enableActivities>false</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>false</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Field_Value_Number__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(ISNUMBER(Field_Value__c),VALUE( Field_Value__c ),0)</formula>
+        <inlineHelpText>Copy the field value of Number</inlineHelpText>
+        <label>Field Value Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackTrending>false</trackTrending>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Field_Value__c</fullName>
+        <externalId>false</externalId>
+        <label>Field Value</label>
+        <length>225</length>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Available_for_RollUp__c</fullName>
+        <defaultValue>false</defaultValue>
+        <externalId>false</externalId>
+        <label>Is Available for RollUp</label>
+        <trackTrending>false</trackTrending>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Is_Eng_Draftng_Cost__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+OR( 
+CONTAINS(Name,&quot;Engineering Cost&quot;), 
+CONTAINS(Name,&quot;Drafting Cost&quot;) 
+), 
+&quot;TRUE&quot;, 
+&quot;FALSE&quot; 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Eng/Draftng Cost</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Modifer_Material_Mfg_Cost__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF( 
+OR( 
+CONTAINS(Name,&quot;Manufacturing Cost&quot;), 
+CONTAINS(Name,&quot;Material Cost&quot;), 
+CONTAINS(Name,&quot;Modifier Cost&quot;) 
+), 
+&quot;TRUE&quot;, 
+&quot;FALSE&quot; 
+)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Is Modifer/Material/Mfg Cost</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Is_Rollup_Field__c</fullName>
+        <externalId>false</externalId>
+        <formula>IF(
+    OR(
+        CONTAINS(Name,&quot;Manufacturing Cost&quot;),
+        CONTAINS(Name,&quot;Material Cost&quot;),
+        CONTAINS(Name,&quot;Engineering Cost&quot;),
+        CONTAINS(Name,&quot;Drafting Cost&quot;),
+        CONTAINS(Name,&quot;Modifier Cost&quot;)
+    ),
+    &quot;TRUE&quot;,
+     &quot;FALSE&quot;
+)</formula>
+        <label>Is Rollup Field</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Notes__c</fullName>
+        <externalId>false</externalId>
+        <formula>SFO__r.Notes__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Notes</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Parent_Name__c</fullName>
+        <externalId>false</externalId>
+        <formula>SFO__r.Component_Name__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Parent Name</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Picklist_Entries__c</fullName>
+        <externalId>false</externalId>
+        <label>Picklist Entries</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>SFO_Field__c</fullName>
+        <deleteConstraint>Restrict</deleteConstraint>
+        <externalId>false</externalId>
+        <label>SFO Field</label>
+        <referenceTo>SFO_Fields__c</referenceTo>
+        <relationshipName>SFO_Dynamic_Fields</relationshipName>
+        <required>true</required>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SFO__c</fullName>
+        <externalId>false</externalId>
+        <label>SFO</label>
+        <referenceTo>Special_Feature_Option__c</referenceTo>
+        <relationshipName>SFO_Dynamic_Fields</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <reparentableMasterDetail>false</reparentableMasterDetail>
+        <trackTrending>false</trackTrending>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <formula>Text(SFO__r.Status__c )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Status</label>
+        <required>false</required>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Special Feature Dynamic Fields</label>
+    <nameField>
+        <label>Field Label</label>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Special Feature Dynamic Fields</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

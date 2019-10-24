@@ -1,0 +1,18 @@
+<apex:page standardController="Case_Service_Code__c" extensions="CaseServiceCodesToALLCasesClone" 
+         id="myPage"  >
+    <script>
+    
+    
+    window.onload = function() 
+    {   
+        redirectToPage();
+    }
+    </script>
+    <apex:form >
+       	 <apex:actionFunction name="redirectToPage" action="{!callWarrantyHelper}" oncomplete="alert('{!alertMessage}');navigateToDetail();" reRender="myPage"/>
+        <apex:actionFunction name="navigateToDetail" action="{!redirectPopup}"/>
+         <apex:detail />
+    </apex:form>
+    
+   
+</apex:page>

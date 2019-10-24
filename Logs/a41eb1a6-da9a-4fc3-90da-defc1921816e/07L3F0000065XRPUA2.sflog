@@ -1,0 +1,135 @@
+33.0 APEX_CODE,DEBUG;APEX_PROFILING,NONE;CALLOUT,NONE;DB,NONE;NBA,INFO;SYSTEM,DEBUG;VALIDATION,NONE;VISUALFORCE,NONE;WAVE,INFO;WORKFLOW,NONE
+15:51:02.0 (489837)|USER_INFO|[EXTERNAL]|005C000000615ih|kent.roessler@daikinapplied.com.uat|Central Standard Time|GMT-05:00
+15:51:02.0 (529178)|EXECUTION_STARTED
+15:51:02.0 (534723)|CODE_UNIT_STARTED|[EXTERNAL]|01pC0000000R5QF|TRC_Dashboard_Data_Test.unitTest()
+15:51:02.0 (71797938)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LQ7w|AddressTrigger on Address trigger event BeforeInsert|__sfdc_trigger/AddressTrigger
+15:51:02.0 (77315910)|SYSTEM_MODE_ENTER|false
+15:51:02.0 (77346279)|SYSTEM_MODE_EXIT|false
+15:51:02.0 (84612757)|CODE_UNIT_FINISHED|AddressTrigger on Address trigger event BeforeInsert|__sfdc_trigger/AddressTrigger
+15:51:02.0 (93298286)|CODE_UNIT_STARTED|[EXTERNAL]|Validation:Address:new
+15:51:02.0 (103494775)|CODE_UNIT_FINISHED|Validation:Address:new
+15:51:02.0 (115056349)|CODE_UNIT_STARTED|[EXTERNAL]|Workflow:01IC0000000u1Qd
+15:51:02.0 (138042029)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LQ7w|AddressTrigger on Address trigger event BeforeUpdate|__sfdc_trigger/AddressTrigger
+15:51:02.0 (175112835)|CODE_UNIT_FINISHED|AddressTrigger on Address trigger event BeforeUpdate|__sfdc_trigger/AddressTrigger
+15:51:02.0 (585542275)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LQ7w|AddressTrigger on Address trigger event AfterUpdate|__sfdc_trigger/AddressTrigger
+15:51:02.0 (591895157)|CODE_UNIT_FINISHED|AddressTrigger on Address trigger event AfterUpdate|__sfdc_trigger/AddressTrigger
+15:51:02.0 (593498660)|CODE_UNIT_FINISHED|Workflow:01IC0000000u1Qd
+15:51:02.0 (661155099)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LQ7u|AccountTrigger on Account trigger event BeforeInsert|__sfdc_trigger/AccountTrigger
+15:51:02.0 (669619818)|CODE_UNIT_FINISHED|AccountTrigger on Account trigger event BeforeInsert|__sfdc_trigger/AccountTrigger
+15:51:02.0 (684050390)|CODE_UNIT_STARTED|[EXTERNAL]|Validation:Account:new
+15:51:02.0 (684158341)|CODE_UNIT_FINISHED|Validation:Account:new
+15:51:02.0 (747045115)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LQ7u|AccountTrigger on Account trigger event AfterInsert|__sfdc_trigger/AccountTrigger
+15:51:02.0 (747460707)|USER_DEBUG|[77]|DEBUG|:::::createAccountAddress :::::::
+15:51:02.0 (747711842)|USER_DEBUG|[103]|DEBUG|:::::billingAddressMap :::::::{}
+15:51:02.0 (747981392)|USER_DEBUG|[126]|DEBUG|:::::accountAddresses :::::::()
+15:51:02.0 (748904856)|CODE_UNIT_FINISHED|AccountTrigger on Account trigger event AfterInsert|__sfdc_trigger/AccountTrigger
+15:51:02.0 (781846831)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LQ7z|ContactTrigger on Contact trigger event BeforeInsert|__sfdc_trigger/ContactTrigger
+15:51:02.0 (787314163)|CODE_UNIT_FINISHED|ContactTrigger on Contact trigger event BeforeInsert|__sfdc_trigger/ContactTrigger
+15:51:02.0 (797123732)|CODE_UNIT_STARTED|[EXTERNAL]|Validation:Contact:new
+15:51:02.0 (797215155)|CODE_UNIT_FINISHED|Validation:Contact:new
+15:51:02.0 (836031997)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LQ7z|ContactTrigger on Contact trigger event AfterInsert|__sfdc_trigger/ContactTrigger
+15:51:02.0 (842252042)|CODE_UNIT_FINISHED|ContactTrigger on Contact trigger event AfterInsert|__sfdc_trigger/ContactTrigger
+15:51:02.0 (842560783)|CODE_UNIT_STARTED|[EXTERNAL]|Workflow:Contact
+15:51:02.0 (854763636)|CODE_UNIT_FINISHED|Workflow:Contact
+15:51:02.0 (894754765)|CODE_UNIT_STARTED|[EXTERNAL]|Validation:Case:new
+15:51:02.0 (894948819)|CODE_UNIT_FINISHED|Validation:Case:new
+15:51:02.0 (956474079)|CODE_UNIT_STARTED|[EXTERNAL]|Workflow:Case
+15:51:02.0 (990532997)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1002808699)|USER_DEBUG|[209]|DEBUG|Called
+15:51:03.2 (1006210439)|USER_DEBUG|[218]|DEBUG|processSteps::()
+15:51:03.2 (1025063851)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1044863175)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1045143398)|USER_DEBUG|[15]|DEBUG|=====>DML Statements: 4
+15:51:03.2 (1045191745)|USER_DEBUG|[16]|DEBUG|=====>SOQL Queries: 15
+15:51:03.2 (1046431405)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1173966693)|CODE_UNIT_FINISHED|Workflow:Case
+15:51:03.2 (1179773514)|CODE_UNIT_STARTED|[EXTERNAL]|Validation:Case:new
+15:51:03.2 (1179942606)|CODE_UNIT_FINISHED|Validation:Case:new
+15:51:03.2 (1200141078)|CODE_UNIT_STARTED|[EXTERNAL]|Workflow:Case
+15:51:03.2 (1209351524)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1212904987)|USER_DEBUG|[209]|DEBUG|Called
+15:51:03.2 (1214560404)|USER_DEBUG|[218]|DEBUG|processSteps::()
+15:51:03.2 (1215892916)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1232404286)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1232597663)|USER_DEBUG|[15]|DEBUG|=====>DML Statements: 5
+15:51:03.2 (1232635980)|USER_DEBUG|[16]|DEBUG|=====>SOQL Queries: 17
+15:51:03.2 (1233537964)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1277950454)|CODE_UNIT_FINISHED|Workflow:Case
+15:51:03.2 (1288752553)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1292326847)|USER_DEBUG|[209]|DEBUG|Called
+15:51:03.2 (1294029206)|USER_DEBUG|[218]|DEBUG|processSteps::()
+15:51:03.2 (1295240754)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1297955431)|CODE_UNIT_STARTED|[EXTERNAL]|Validation:Case:5003F000004skiM
+15:51:03.2 (1298136389)|CODE_UNIT_FINISHED|Validation:Case:5003F000004skiM
+15:51:03.2 (1347377087)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1347662407)|USER_DEBUG|[15]|DEBUG|=====>DML Statements: 6
+15:51:03.2 (1347696938)|USER_DEBUG|[16]|DEBUG|=====>SOQL Queries: 19
+15:51:03.2 (1348607321)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1348914799)|CODE_UNIT_STARTED|[EXTERNAL]|Workflow:Case
+15:51:03.2 (1358254515)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1361725391)|USER_DEBUG|[209]|DEBUG|Called
+15:51:03.2 (1363598441)|USER_DEBUG|[218]|DEBUG|processSteps::()
+15:51:03.2 (1364783644)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1377503312)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1377716778)|USER_DEBUG|[15]|DEBUG|=====>DML Statements: 6
+15:51:03.2 (1377746875)|USER_DEBUG|[16]|DEBUG|=====>SOQL Queries: 21
+15:51:03.2 (1378668902)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1432012956)|CODE_UNIT_FINISHED|Workflow:Case
+15:51:03.2 (1439294930)|CODE_UNIT_STARTED|[EXTERNAL]|Validation:Case:new
+15:51:03.2 (1439490335)|CODE_UNIT_FINISHED|Validation:Case:new
+15:51:03.2 (1485355317)|CODE_UNIT_STARTED|[EXTERNAL]|Workflow:Case
+15:51:03.2 (1499372437)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1503087234)|USER_DEBUG|[209]|DEBUG|Called
+15:51:03.2 (1504847407)|USER_DEBUG|[218]|DEBUG|processSteps::()
+15:51:03.2 (1505978592)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1522905503)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1523152120)|USER_DEBUG|[15]|DEBUG|=====>DML Statements: 7
+15:51:03.2 (1523185617)|USER_DEBUG|[16]|DEBUG|=====>SOQL Queries: 23
+15:51:03.2 (1524127179)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.2 (1569752214)|CODE_UNIT_FINISHED|Workflow:Case
+15:51:03.726 (1726020066)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.726 (1729898881)|USER_DEBUG|[209]|DEBUG|Called
+15:51:03.726 (1731821243)|USER_DEBUG|[218]|DEBUG|processSteps::()
+15:51:03.726 (1733451678)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event BeforeUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.781 (1781386942)|CODE_UNIT_STARTED|[EXTERNAL]|01qC0000000LHB7|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:03.781 (1781721907)|USER_DEBUG|[15]|DEBUG|=====>DML Statements: 7
+15:51:03.781 (1781754403)|USER_DEBUG|[16]|DEBUG|=====>SOQL Queries: 25
+15:51:03.781 (1782639124)|CODE_UNIT_FINISHED|CaseTrigger on Case trigger event AfterUpdate|__sfdc_trigger/CaseTrigger
+15:51:04.224 (2224651996)|CODE_UNIT_STARTED|[EXTERNAL]|01pC0000000R5QE|TRC_Dashboard_Data
+15:51:04.224 (2250818641)|USER_DEBUG|[18]|ERROR|AggregateResult:{Name=TRC, Id=005C0000003M6GJIA0, Result=3}
+15:51:04.224 (2251037298)|USER_DEBUG|[18]|ERROR|AggregateResult:{Name=TRC, Id=005C000000615ihIAA, Result=1}
+15:51:04.224 (2251228508)|USER_DEBUG|[18]|ERROR|AggregateResult:{Name=TRC - AAH, Id=005C0000003M6GJIA0, Result=1}
+15:51:04.224 (2251403576)|USER_DEBUG|[18]|ERROR|AggregateResult:{Name=TRC - AAH, Id=005C000000615ihIAA, Result=1}
+15:51:04.224 (2251577029)|USER_DEBUG|[18]|ERROR|AggregateResult:{Name=TRC - ATS, Id=005C0000003M6GJIA0, Result=2}
+15:51:04.224 (2251757319)|USER_DEBUG|[18]|ERROR|AggregateResult:{Name=TRC - Chillers, Id=005C0000003M6GJIA0, Result=3}
+15:51:04.224 (2251931169)|USER_DEBUG|[18]|ERROR|AggregateResult:{Name=TRC - Controls, Id=005C0000003M6GJIA0, Result=1}
+15:51:04.224 (2252081663)|USER_DEBUG|[20]|ERROR|{TRC - AAH,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=1, reopenedCaseCount=0], TRC - AAH,005C000000615ihIAA=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=1, reopenedCaseCount=0], TRC - ATS,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=2, reopenedCaseCount=0], TRC - Chillers,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=3, reopenedCaseCount=0], TRC - Controls,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=1, reopenedCaseCount=0], TRC,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=3, reopenedCaseCount=0], TRC,005C000000615ihIAA=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=1, reopenedCaseCount=0]}
+15:51:04.224 (2272731405)|USER_DEBUG|[48]|ERROR|AggregateResult:{Name=TRC, Id=005C000000615ihIAA, Result=2}
+15:51:04.224 (2272991077)|USER_DEBUG|[48]|ERROR|AggregateResult:{Name=TRC - AAH, Id=005C000000615ihIAA, Result=1}
+15:51:04.224 (2273217833)|USER_DEBUG|[58]|ERROR|{TRC - AAH,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=1, reopenedCaseCount=0], TRC - AAH,005C000000615ihIAA=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=1, reopenedCaseCount=1], TRC - ATS,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=2, reopenedCaseCount=0], TRC - Chillers,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=3, reopenedCaseCount=0], TRC - Controls,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=1, reopenedCaseCount=0], TRC,005C0000003M6GJIA0=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=3, reopenedCaseCount=0], TRC,005C000000615ihIAA=TRCDashboardData:[closedCaseCount=0, createdCaseCount=0, openCaseCount=1, reopenedCaseCount=2]}
+15:51:04.224 (2273807073)|USER_DEBUG|[71]|DEBUG|Group key is:TRC
+15:51:04.224 (2273861175)|USER_DEBUG|[75]|DEBUG|Userkey is:005C0000003M6GJIA0
+15:51:04.224 (2273943775)|USER_DEBUG|[79]|DEBUG|create case snapshot
+15:51:04.224 (2274146390)|USER_DEBUG|[71]|DEBUG|Group key is:TRC
+15:51:04.224 (2274179623)|USER_DEBUG|[75]|DEBUG|Userkey is:005C000000615ihIAA
+15:51:04.224 (2274229248)|USER_DEBUG|[79]|DEBUG|create case snapshot
+15:51:04.224 (2274408863)|USER_DEBUG|[71]|DEBUG|Group key is:TRC - AAH
+15:51:04.224 (2274438752)|USER_DEBUG|[75]|DEBUG|Userkey is:005C0000003M6GJIA0
+15:51:04.224 (2274471076)|USER_DEBUG|[79]|DEBUG|create case snapshot
+15:51:04.224 (2274629038)|USER_DEBUG|[71]|DEBUG|Group key is:TRC - AAH
+15:51:04.224 (2274658143)|USER_DEBUG|[75]|DEBUG|Userkey is:005C000000615ihIAA
+15:51:04.224 (2274688775)|USER_DEBUG|[79]|DEBUG|create case snapshot
+15:51:04.224 (2274834845)|USER_DEBUG|[71]|DEBUG|Group key is:TRC - ATS
+15:51:04.224 (2274863100)|USER_DEBUG|[75]|DEBUG|Userkey is:005C0000003M6GJIA0
+15:51:04.224 (2274891767)|USER_DEBUG|[79]|DEBUG|create case snapshot
+15:51:04.224 (2275035914)|USER_DEBUG|[71]|DEBUG|Group key is:TRC - Chillers
+15:51:04.224 (2275065600)|USER_DEBUG|[75]|DEBUG|Userkey is:005C0000003M6GJIA0
+15:51:04.224 (2275094594)|USER_DEBUG|[79]|DEBUG|create case snapshot
+15:51:04.224 (2275238729)|USER_DEBUG|[71]|DEBUG|Group key is:TRC - Controls
+15:51:04.224 (2275266860)|USER_DEBUG|[75]|DEBUG|Userkey is:005C0000003M6GJIA0
+15:51:04.224 (2275296629)|USER_DEBUG|[79]|DEBUG|create case snapshot
+15:51:04.224 (2275545947)|USER_DEBUG|[84]|DEBUG|insert case records:(Case_Snapshot__c:{SnapShot_Date__c=2019-03-26 00:00:00, Open_Cases__c=3, Created_Cases__c=0, Closed_Cases__c=0, Reopened_Cases__c=0, TRC_Group__c=TRC, User__c=005C0000003M6GJIA0}, Case_Snapshot__c:{SnapShot_Date__c=2019-03-26 00:00:00, Open_Cases__c=1, Created_Cases__c=0, Closed_Cases__c=0, Reopened_Cases__c=2, TRC_Group__c=TRC, User__c=005C000000615ihIAA}, Case_Snapshot__c:{SnapShot_Date__c=2019-03-26 00:00:00, Open_Cases__c=1, Created_Cases__c=0, Closed_Cases__c=0, Reopened_Cases__c=0, TRC_Group__c=TRC - AAH, User__c=005C0000003M6GJIA0}, Case_Snapshot__c:{SnapShot_Date__c=2019-03-26 00:00:00, Open_Cases__c=1, Created_Cases__c=0, Closed_Cases__c=0, Reopened_Cases__c=1, TRC_Group__c=TRC - AAH, User__c=005C000000615ihIAA}, Case_Snapshot__c:{SnapShot_Date__c=2019-03-26 00:00:00, Open_Cases__c=2, Created_Cases__c=0, Closed_Cases__c=0, Reopened_Cases__c=0, TRC_Group__c=TRC - ATS, User__c=005C0000003M6GJIA0}, Case_Snapshot__c:{SnapShot_Date__c=2019-03-26 00:00:00, Open_Cases__c=3, Created_Cases__c=0, Closed_Cases__c=0, Reopened_Cases__c=0, TRC_Group__c=TRC - Chillers, User__c=005C0000003M6GJIA0}, Case_Snapshot__c:{SnapShot_Date__c=2019-03-26 00:00:00, Open_Cases__c=1, Created_Cases__c=0, Closed_Cases__c=0, Reopened_Cases__c=0, TRC_Group__c=TRC - Controls, User__c=005C0000003M6GJIA0})
+15:51:04.224 (2319560861)|USER_DEBUG|[86]|DEBUG|insert case records
+15:51:04.224 (2319623654)|CODE_UNIT_FINISHED|TRC_Dashboard_Data
+15:51:04.224 (2324714696)|CODE_UNIT_FINISHED|TRC_Dashboard_Data_Test.unitTest()
+15:51:04.224 (2325580163)|EXECUTION_FINISHED

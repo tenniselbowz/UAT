@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>CancelEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>SaveEdit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override updated by Lightning App Builder during activation.</comment>
+        <content>License_Chatter</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+    </actionOverrides>
+    <allowInChatterGroups>true</allowInChatterGroups>
+    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>This object is used the Service Operations License team</description>
+    <enableActivities>true</enableActivities>
+    <enableBulkApi>true</enableBulkApi>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableLicensing>false</enableLicensing>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>true</enableStreamingApi>
+    <fields>
+        <fullName>Additional_Information__c</fullName>
+        <externalId>false</externalId>
+        <label>Additional Information</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Address_Line_1__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Bill Address first line</inlineHelpText>
+        <label>Mailing To Address Line 1</label>
+        <length>150</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Bill_To_Address_Line_2__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Billing Address line 2</inlineHelpText>
+        <label>Mailing To Address Line 2</label>
+        <length>150</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_City__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Billing City</inlineHelpText>
+        <label>Mailing City</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Country__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Billing Country</inlineHelpText>
+        <label>Mailing Country</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_State_Province__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Billing State/Province</inlineHelpText>
+        <label>Mailing State/Province</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Billing_Zip_Postal_Code__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Billing Zip/Postal Code</inlineHelpText>
+        <label>Mailing Zip/Postal Code</label>
+        <length>50</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Cost_Center__c</fullName>
+        <externalId>false</externalId>
+        <label>Cost Center</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>1111</fullName>
+                    <default>false</default>
+                    <label>1111</label>
+                </value>
+                <value>
+                    <fullName>2222</fullName>
+                    <default>false</default>
+                    <label>2222</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Expiration_Date__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Date that the license expires.</inlineHelpText>
+        <label>Expiration Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Issuing_Authority__c</fullName>
+        <externalId>false</externalId>
+        <label>Issuing Authority</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>License_Category__c</fullName>
+        <externalId>false</externalId>
+        <label>License Category</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Business License</fullName>
+                    <default>false</default>
+                    <label>Business License</label>
+                </value>
+                <value>
+                    <fullName>Tax License</fullName>
+                    <default>false</default>
+                    <label>Tax License</label>
+                </value>
+                <value>
+                    <fullName>Contractor License</fullName>
+                    <default>false</default>
+                    <label>Contractor License</label>
+                </value>
+                <value>
+                    <fullName>Gaming License</fullName>
+                    <default>false</default>
+                    <label>Gaming License</label>
+                </value>
+                <value>
+                    <fullName>Remove additional types</fullName>
+                    <default>false</default>
+                    <label>Remove additional types</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>License_Coverage__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What type of coverage is the license applicable to?</inlineHelpText>
+        <label>License Coverage</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>City</fullName>
+                    <default>false</default>
+                    <label>City</label>
+                </value>
+                <value>
+                    <fullName>State</fullName>
+                    <default>false</default>
+                    <label>State</label>
+                </value>
+                <value>
+                    <fullName>County</fullName>
+                    <default>false</default>
+                    <label>County</label>
+                </value>
+                <value>
+                    <fullName>Other</fullName>
+                    <default>false</default>
+                    <label>Other</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>License_Name__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Description</inlineHelpText>
+        <label>License Name</label>
+        <length>100</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>License_Nbr__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Unique license/tax nbr</inlineHelpText>
+        <label>License Nbr</label>
+        <length>240</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>License_Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What type of a license/tax is this?</inlineHelpText>
+        <label>License Type</label>
+        <length>30</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Other_Coverage__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What is the Other Coverage?</inlineHelpText>
+        <label>Other Coverage</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Payment_Type__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>What form of payment did we make the payment with?</inlineHelpText>
+        <label>Payment Type</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <restricted>true</restricted>
+            <valueSetDefinition>
+                <sorted>false</sorted>
+                <value>
+                    <fullName>Check</fullName>
+                    <default>false</default>
+                    <label>Check</label>
+                </value>
+                <value>
+                    <fullName>Credit Card</fullName>
+                    <default>false</default>
+                    <label>Credit Card</label>
+                </value>
+                <value>
+                    <fullName>ACH</fullName>
+                    <default>false</default>
+                    <label>ACH</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Renewal_Website__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Website used for Renewals</inlineHelpText>
+        <label>Renewal Website</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <fields>
+        <fullName>Responsible_Managing_Employee_Fourth__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Responsible Managing Employee (Fourth)</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Licenses (Responsible Managing Employee (Fourth))</relationshipLabel>
+        <relationshipName>Licenses4</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Responsible_Managing_Employee_Primary__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Responsible Managing Employee (Primary)</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Licenses (Responsible Managing Employee (Primary))</relationshipLabel>
+        <relationshipName>License_RME</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Responsible_Managing_Employee_Second__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Responsible Managing Employee (Second)</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Licenses (Responsible Managing Employee (Second))</relationshipLabel>
+        <relationshipName>Licenses2</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Responsible_Managing_Employee_Third__c</fullName>
+        <deleteConstraint>SetNull</deleteConstraint>
+        <externalId>false</externalId>
+        <label>Responsible Managing Employee (Third)</label>
+        <referenceTo>Contact</referenceTo>
+        <relationshipLabel>Licenses (Responsible Managing Employee (Third))</relationshipLabel>
+        <relationshipName>Licenses3</relationshipName>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status_Note__c</fullName>
+        <externalId>false</externalId>
+        <label>Status Note</label>
+        <length>32768</length>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Picklist</type>
+        <valueSet>
+            <valueSetDefinition>
+                <sorted>true</sorted>
+                <value>
+                    <fullName>Active</fullName>
+                    <default>true</default>
+                    <label>Active</label>
+                </value>
+                <value>
+                    <fullName>Cancelled</fullName>
+                    <default>false</default>
+                    <label>Cancelled</label>
+                </value>
+                <value>
+                    <fullName>Inactive</fullName>
+                    <default>false</default>
+                    <label>Inactive</label>
+                </value>
+                <value>
+                    <fullName>Suspended</fullName>
+                    <default>false</default>
+                    <label>Suspended</label>
+                </value>
+            </valueSetDefinition>
+        </valueSet>
+    </fields>
+    <fields>
+        <fullName>Website__c</fullName>
+        <externalId>false</externalId>
+        <inlineHelpText>Website used for License requirements</inlineHelpText>
+        <label>Website</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <trackTrending>false</trackTrending>
+        <type>Url</type>
+    </fields>
+    <label>License</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <listViews>
+        <fullName>All1</fullName>
+        <columns>Issuing_Authority__c</columns>
+        <columns>License_Nbr__c</columns>
+        <columns>Billing_City__c</columns>
+        <columns>Billing_State_Province__c</columns>
+        <columns>Other_Coverage__c</columns>
+        <columns>NAME</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>LIC-{000000}</displayFormat>
+        <label>Record ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Licenses</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ReadWrite</sharingModel>
+    <validationRules>
+        <fullName>Coverage_Class_equals_Other</fullName>
+        <active>true</active>
+        <description>If the Coverage Class = Other then the user must enter something into the Other Coverage Class field.</description>
+        <errorConditionFormula>(ISBLANK(Other_Coverage__c ) &amp;&amp; Text(License_Coverage__c)= &quot;Other&quot;)</errorConditionFormula>
+        <errorDisplayField>Other_Coverage__c</errorDisplayField>
+        <errorMessage>If License Coverage = Other the Other Coverage field must be populated</errorMessage>
+    </validationRules>
+    <validationRules>
+        <fullName>Status_is_Suspended_or_Cancelled</fullName>
+        <active>true</active>
+        <description>If Status = Suspended or Cancelled the Status Notes cannot be blank</description>
+        <errorConditionFormula>AND(
+OR (Text( Status__c)= &quot;Suspended&quot;, Text( Status__c) =&quot;Cancelled&quot;),
+ISBLANK( Status_Note__c))</errorConditionFormula>
+        <errorDisplayField>Status_Note__c</errorDisplayField>
+        <errorMessage>If the Status is Suspended or Cancelled you must add a Status Note.</errorMessage>
+    </validationRules>
+    <visibility>Public</visibility>
+</CustomObject>

@@ -1,0 +1,103 @@
+<apex:page standardController="Factory_Pricing_Authorization__c" extensions="SendEmailFPARelatedAttachmentsController" showHeader="true" sidebar="true">
+    <apex:pageMessages />
+    <head>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+        
+        <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+        
+        j$(document).ready(function() {
+            var fpaID = '{!fpaID}';	// Get FPA Id from the controller
+            if(!fpaID) {
+                j$('#message').text('Error: This page must be used in combination with a specific FPA. Please navigate to an FPA and click the Download Attachments button to use this page.');
+                return;
+            }
+            
+            var zipFile = new JSZip();			// Instantiate a new zip file
+            var zipFilename = '{!zipFilename}';	// Get filename from the controller
+            var count = 0;						// File count
+            
+            // Call controller function to get a list of XML files
+            // Response is an object with filename as key and XML body as value
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.SendEmailFPARelatedAttachmentsController.getXMLFiles}',
+                fpaID,
+                function(result, event) {
+                    
+                    if(event.status) {
+                        // Loop through files and add each one to the zip
+                        // One result contains the Schedule Ids for all Schedule records that were used
+                        for(var xmlFilename in result) {
+                            count++;
+                            compressFile(zipFile, xmlFilename, result[xmlFilename]);
+                        }
+                        
+                        if(count > 0) {
+                            saveZip(zipFile);
+                        } 
+                        else{
+                            saveZip1();
+                        }
+                        alert('Email has been Sent Successfully');
+                    } 
+                    else{
+                        alert('Email has not been sent');
+                    }
+                    window.location = '/' + fpaID;
+                }
+            );
+            
+            // Compress a file and add it to the zip
+            function compressFile(zipFile, filename, body) {
+                zipFile.file(filename, body, {base64: true});
+            }
+            
+            // Generate the zip file and send it back to Salesforce for attaching
+            function saveZip(zipFile) {
+                var data = zipFile.generate();      
+                
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.SendEmailFPARelatedAttachmentsController.saveData}',
+                    fpaID,
+                    zipFilename,
+                    data,
+                    function(result, event) {
+                        if(event.status) {
+                            if(result.includes("SUCCESS")) {
+                                var attId = result.slice(8);
+                                window.location = '/' + fpaID;
+                            } 
+                        } 
+                    }
+                );
+            }
+            function saveZip1(){
+                var data = '';
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.SendEmailFPARelatedAttachmentsController.saveData}',
+                    fpaID,
+                    zipFilename,
+                    data,
+                    function(result, event) {
+                        if(event.status) {
+                            if(result.includes("SUCCESS")) {
+                                var attId = result.slice(8);
+                                window.location = '/' + fpaID;
+                                alert('Email Sent Successfully');
+                            } 
+                            
+                        } 
+                    }
+                );
+            }
+        });
+        </script>
+    </head>
+    
+    <body>
+        <br/>
+        <h2 id="message"></h2>
+        <br/>
+    </body>
+</apex:page>

@@ -1,0 +1,27 @@
+{
+  "VisualforcePreviewerPerProject": {
+    "collapsedPages": [],
+    "expandedPages": [],
+    "customUrls": {},
+    "parameters": {}
+  },
+  "LightningPreviewerPerProject": {
+    "activeApplicationForComponent": {},
+    "collapsedBundles": [],
+    "expandedBundles": [],
+    "customUrls": {},
+    "parameters": {}
+  },
+  "CodeMapPerProject": {
+    "collapsedPanels": [
+      "Batch_IE_CallExtWebServices_Test",
+      "testCreateAssetonClosedWon",
+      "IERenewal_SubscriptionUpdateServiceTest",
+      "IE_IndividualService",
+      "Batch_IE_CallExtWebServices",
+      "TRC_Dashboard_Data",
+      "TRC_Dashboard_Data_Test"
+    ]
+  },
+  "SettingsVersion": 1
+}

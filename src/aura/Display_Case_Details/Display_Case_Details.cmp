@@ -1,0 +1,11 @@
+<aura:component implements="flexipage:availableForRecordHome,force:hasRecordId">
+    <aura:attribute name="recordId" type="String" />
+    <lightning:card class="">
+        <div class="my_template">
+        <lightning:recordForm recordId="{!v.recordId}" 
+                              objectApiName="Case"
+                              mode="readonly"
+                              fields="Case_Details__c"  class="slds-form-element__label"/>
+            </div>
+    </lightning:card>
+</aura:component>

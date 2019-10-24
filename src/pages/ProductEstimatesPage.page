@@ -1,0 +1,194 @@
+<apex:page standardController="Product__c" extensions="ProductEstimates" sidebar="false" lightningStylesheets="true">
+    <style>
+    .slds-scope .slds-input{
+        border: 1px solid rgb(140, 138, 137);
+        }
+    </style>
+    <script>
+    function validateHour(hour,type)
+    {
+        var estType = document.getElementById(type).value;
+        if(estType == 'Dollars')
+        {
+            alert("Estimate type Dollars doesn't requires Hours");
+            hour.value=0.00;
+        }
+        else if (hour.value == parseInt(hour.value, 10))
+        {
+            if(hour.value < 0)
+            {
+                alert("Please enter Valid Hours");
+                hour.value=0.00;
+            }
+        }
+        else
+        {
+            alert("Please enter Valid Hours");
+            hour.value=0.00;
+        }
+    }
+    function resetValues(type,hour)
+    {
+        document.getElementById(hour).value=0.00;
+    }
+    </script>
+    <apex:form id="formId">
+        
+        <!--apex:outputPanel >
+            <apex:actionStatus id="actStatusId">
+                <apex:facet name="start">
+                    <div class="demo-only demo--inverse" style="height: 6rem;">
+                        <div class="slds-spinner_container">
+                            <div role="status" class="slds-spinner slds-spinner_medium">
+                                <span class="slds-assistive-text">Loading</span>
+                                <div class="slds-spinner__dot-a"></div>
+                                <div class="slds-spinner__dot-b"></div>
+                            </div>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:outputPanel-->
+        
+        <apex:outputPanel >
+            <apex:actionStatus id="actStatusId">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6; height: 100%;opacity:0.65;width:100%;"> 
+                        <div class="waitingHolder" style="width: 91px;">
+                            <img  src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Loading...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:outputPanel>
+        
+        <apex:slds />
+        <div class="slds-scope">
+            <div>
+                <nav role="navigation" aria-label="Breadcrumbs">
+                    <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                        <li class="slds-breadcrumb__item"><a href="/{!productObj.Id}">{!productObj.Name}</a></li>
+                        <li class="slds-breadcrumb__item"><a style="cursor: default" href="">Estimates</a></li>
+                    </ol>
+                </nav>
+            </div>
+            <br/>
+            <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title" style="background: #ddd;">
+                        <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Format Details</span>
+                    </h3>
+                    <div class="slds-form" role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Product__c.fields.Name.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!productObj.Name}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal ">
+                                    <span class="slds-form-element__label">{!$ObjectType.Product__c.fields.PCL__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!productObj.PCL__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Product__c.fields.Description__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!productObj.Description__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <!--<div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Product__c.fields.Revenue__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!productObj.Revenue__c}"/>
+                                        </div>
+                                    </div>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <apex:pageMessages />
+            </div>
+            <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title" style="background: #ddd;">
+                        <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Format Costs</span>
+                    </h3>
+                 
+                    <div align="right">
+                        <apex:commandButton reRender="formId"  styleClass="slds-button slds-button_success" style="margin:0.5%;margin-right:8.5%;font-size:15px;" value="+" action="{!addRow}" status="actStatusId" />
+                    </div>
+                    <Table class="slds-table  slds-table_cell-buffer" >
+                        <thead >
+                            <tr>
+                                <th>Label</th>
+                                <!--<th>Type</th>-->
+                                <th>$/Hour</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:repeat value="{!estimateMap}" var="estimateRec">
+                                <tr >
+                                    <td>
+                                        <apex:outputPanel rendered="{!if(estimateMap[estimateRec].id != null,false,true)}">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!estimateMap[estimateRec].Estimate_Lable__c}"/>
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!if(estimateMap[estimateRec].id != null,true,false)}">
+                                            <apex:inputField html-disabled="true" styleClass="slds-input slds-combobox__input" value="{!estimateMap[estimateRec].Estimate_Lable__c}"/>
+                                        </apex:outputPanel>
+                                    </td>
+                                   <!-- <td>
+                                        <apex:outputPanel rendered="{!if(estimateMap[estimateRec].id != null,false,true)}">
+                                            <apex:inputField id="type" styleClass="slds-input slds-combobox__input" value="{!estimateMap[estimateRec].Type__c}" onchange="resetValues(this,'{!$Component.hour}')" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!if(estimateMap[estimateRec].id != null,true,false)}">
+                                            <apex:inputField html-disabled="true" styleClass="slds-input slds-combobox__input" value="{!estimateMap[estimateRec].Type__c}" />
+                                        </apex:outputPanel>   
+                                    </td>-->
+                                    <td>
+                                        <apex:outputPanel rendered="{!if(estimateMap[estimateRec].id != null,false,true)}">
+                                            <apex:inputField id="hour" styleClass="slds-input" value="{!estimateMap[estimateRec].Hour__c}" onchange="validateHour(this,'{!$Component.type}')" />
+                                        </apex:outputPanel>
+                                        <apex:outputPanel rendered="{!if(estimateMap[estimateRec].id != null,true,false)}">
+                                            <apex:inputField html-disabled="true" styleClass="slds-input" value="{!estimateMap[estimateRec].Hour__c}"  />
+                                        </apex:outputPanel>
+                                    </td>
+                                    <td>
+                                        <apex:commandLink styleClass="slds-button slds-button_destructive" value="X" action="{!delRow}" status="actStatusId">
+                                            <apex:param name="index" value="{!estimateRec}" assignTo="{!rowNumber}"/>
+                                        </apex:commandLink>
+                                    </td>
+                                </tr>
+                            </apex:repeat>
+                        </tbody>
+                    </Table>
+                    <div align="center">
+                        <apex:commandButton status="actStatusId" reRender="formId" styleClass="slds-button slds-button_neutral" style="margin-top:1%" value="Save" action="{!submitEstimates}" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,494 @@
+<apex:page standardController="Factory_Pricing_Authorization__c"  extensions="FPA_CreationController" tabStyle="Factory_Pricing_Authorization__c" sidebar="false" >
+    <style>
+        
+        .slds-scope .slds-input{
+        width: 80%;
+        border: 1px solid rgb(140, 138, 137);}
+        
+        .lookupInput a { 
+        width: 50px !important ;
+        border: none !important;
+        }
+        .slds-scope input[type=checkbox], .slds-scope input[type=radio] {
+        box-sizing: border-box;
+        padding: 0;
+        width: 4% !important;
+        }
+        .message .messageTable .messageCell {width: 98%;}
+        table.messageTable td:first-child{width:3%}
+        .message .messageText {margin-left: 0px;}
+        .bcrumbsContainer{padding:10px 0px 0px 0px;}
+        .message{margin: 11px 20px;}
+    </style>
+    <script>
+    function Callmefunc(Quantity)
+    {
+        //check(type); 
+        onQuantityChange(Quantity);      
+        //return true;     
+    }
+    </script>
+    <apex:form id="formId" >
+        <apex:message />
+        <apex:outputPanel >
+            <apex:actionStatus id="actStatusId">
+                <apex:facet name="start">
+                    <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6; height: 100%;opacity:0.65;width:100%;"> 
+                        <div class="waitingHolder" style="width: 91px;">
+                            <img  src="/img/loading.gif" title="Please Wait..." />
+                            <span class="waitingDescription">Loading...</span>
+                        </div>
+                    </div>
+                </apex:facet>
+            </apex:actionStatus>
+        </apex:outputPanel>
+        <apex:actionFunction name="onQuantityChange" action="{!generateUnitDetails}" reRender="UnitTags,quantityPanel" immediate="true"
+                             oncomplete="" status="actStatusId">
+            <apex:param name="qy" value="" assignTo="{!fpaQuantityString}" />
+        </apex:actionFunction>
+        <apex:slds />
+        
+        <div class="slds-scope">
+            <div >
+                <nav role="navigation" aria-label="Breadcrumbs">
+                    <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                        <apex:outputPanel rendered="{!if(FPAObj.Id !=null,true,false)}">
+                            <li class="slds-breadcrumb__item"><a href="/{!FPAObj.Id}">{!FPAObj.Name}</a></li>
+                        </apex:outputPanel>
+                        <apex:outputPanel rendered="{!if(FPAObj.Id ==null,true,false)}">
+                            <li class="slds-breadcrumb__item"><a href="{!returnUrl}">Back</a></li>
+                        </apex:outputPanel>
+                        <li class="slds-breadcrumb__item"><a style="cursor: default" href="">{!vfTitle}</a></li>
+                    </ol>
+                </nav>
+            </div>
+            <div>
+                
+                <apex:pageMessages id="error" /> 
+            </div>
+            <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title" style="background: #ddd;">
+                        <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Information</span>
+                    </h3>
+                    <div class="slds-form" role="list">
+                        <apex:outputPanel rendered="{!showInVersion}" >
+                            <div class="slds-form__row"  >
+                                <div class="slds-form__item " role="listitem">
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.FPA_Number__c.Label}</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <apex:outputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.FPA_Number__c}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-form__item " role="listitem">
+                                    <div class="slds-form-element slds-form-element_horizontal ">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:outputPanel>
+                        
+                        <div class="slds-form__row">
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">
+                                        {!$ObjectType.Factory_Pricing_Authorization__c.fields.Name.Label}
+                                        <font color="red">*</font>
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" required="true" value="{!FPAObj.Name}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">
+                                        {!$ObjectType.Factory_Pricing_Authorization__c.fields.Application_Engineer__c.Label}
+                                        <font color="red">*</font>
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" required="true" value="{!FPAObj.Application_Engineer__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Discreet_Identifier__c.Label}
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Discreet_Identifier__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                
+                                <div class="slds-form-element slds-form-element_horizontal ">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Status__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Status__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal ">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Office__c.Label}
+                                        <font color="red">*</font></span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input"  value="{!FPAObj.Office__c}" rendered="{!showInCloneOrCreation}" required="true"/>
+                                            <apex:outputField styleClass="slds-input slds-combobox__input"  value="{!FPAObj.Office__c}" rendered="{!showInVersion}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Sales_Person__c.Label}
+                                        <font color="red">*</font></span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input"  value="{!FPAObj.Sales_Person__c}" rendered="{!showInCloneOrCreation}" required="true"/>
+                                            <apex:outputField styleClass="slds-input slds-combobox__input"  value="{!FPAObj.Sales_Person__c}" rendered="{!showInVersion}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Entry_Date__c.Label}
+                                        <font color="red">*</font></span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField required="true" styleClass="slds-input slds-combobox__input"  value="{!FPAObj.Entry_Date__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Submitted__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Submitted__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="slds-form__row">
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Req_Ship__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Req_Ship__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item " role="listitem">
+                                
+                            </div>
+                        </div>
+                        <!--<apex:outputPanel rendered="{!showInVersion}">
+                            <div class="slds-form__row">
+                                
+                                <div class="slds-form__item" role="listitem">
+                                    <div class="slds-form-element slds-form-element_horizontal">
+                                        <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Version__c.Label}</span>
+                                        <div class="slds-form-element__control">
+                                            <div class="slds-form-element__static">
+                                                <apex:outputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Version__c}" rendered="{!showInVersion}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </apex:outputPanel>-->
+                    </div>
+                </div>
+            </div>
+            <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+                <div class="slds-section slds-is-open">
+                    <h3 class="slds-section__title" style="background: #ddd;">
+                        <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Approval Details</span>
+                    </h3>
+                    <div class="slds-form" role="list">
+                         <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Approval_level__c.Label}
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Approval_Level__c}"  rendered="{!showInCloneOrCreation}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">
+                                        {!$ObjectType.Factory_Pricing_Authorization__c.fields.Risk_Mitigation_Plan__c.Label}
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Risk_Mitigation_Plan__c}" rendered="{!showInCloneOrCreation}"></apex:inputField>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Risk__c.Label}
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Risk__c}"  rendered="{!showInCloneOrCreation}"/>
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Risk__c}" rendered="{!showInVersion}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Eng_Mfg_Effort__c.Label}
+                                    </span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Eng_Mfg_Effort__c}" rendered="{!showInCloneOrCreation}"/>
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Eng_Mfg_Effort__c}" rendered="{!showInVersion}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title" style="background: #ddd;">
+                    <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Description/Notes</span>
+                </h3>
+                <div class="slds-form" role="list">
+                    <div class="slds-form__row">
+                        <div class="slds-form__item " role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal">
+                                <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Description__c.Label}
+                                </span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Description__c}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__item " role="listitem">
+                            <div class="slds-form-element slds-form-element_horizontal ">
+                                <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Internal_Notes__c.Label}</span>
+                                <div class="slds-form-element__control">
+                                    <div class="slds-form-element__static">
+                                        <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Internal_Notes__c}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+            <div class="slds-section slds-is-open">
+                <h3 class="slds-section__title" style="background: #ddd;">
+                    <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Base Details</span>
+                </h3>
+                <apex:outputPanel id="BaseDetailsPanel">
+                    <div class="slds-form" role="list">
+                        <div class="slds-form__row">
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Base_Unit_to_be_Modified__c.Label}
+                                        <font color="red">*</font></span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:outputField styleClass="slds-input slds-combobox__input" rendered="{!showInVersion}" value="{!FPAObj.Base_Unit_to_be_Modified__c}"/>
+                                            <apex:inputField rendered="{!showInCloneOrCreation}" required="True" styleClass="slds-input slds-combobox__input" value="{!FPAObj.Base_Unit_to_be_Modified__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal ">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Quantity__c.Label}
+                                        <font color="red">*</font></span>
+                                    <div class="slds-form-element__control"><!--error,error1-->
+                                        <div class="slds-form-element__static">
+                                            <apex:outputPanel id="quantityPanel">
+                                                <apex:outputPanel rendered="{!!showInEditPage ||FPAObj.Quantity__c == 0 }">
+                                                    <apex:inputField required="true" id="quantity" styleClass="slds-input slds-combobox__input"
+                                                                     value="{!FPAObj.Quantity__c}" 
+                                                                     onblur="Callmefunc(this.value)" />
+                                                    
+                                                </apex:outputPanel>
+                                                <apex:outputPanel rendered="{!showInEditPage && FPAObj.Quantity__c != 0}">
+                                                    <apex:outputField id="quantityy" styleClass="slds-input slds-combobox__input"
+                                                                      value="{!FPAObj.Quantity__c}"/>
+                                                </apex:outputPanel>
+                                            </apex:outputPanel>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Repeatability__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Repeatability__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Modifier_location__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Modifier_location__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item " role="listitem">
+                                <div class="slds-form-element slds-form-element_horizontal">
+                                    <span class="slds-form-element__label">{!$ObjectType.Factory_Pricing_Authorization__c.fields.Add_to_McQuary_Tools__c.Label}</span>
+                                    <div class="slds-form-element__control">
+                                        <div class="slds-form-element__static">
+                                            <apex:inputField styleClass="slds-input slds-combobox__input" value="{!FPAObj.Add_to_McQuary_Tools__c}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-form__item " role="listitem">
+                                
+                            </div>
+                        </div>
+                        <div class="slds-form__row">
+                            <div class="slds-form__item" role="listitem">
+                                
+                            </div>
+                            <div class="slds-form__item" role="listitem">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </apex:outputPanel> 
+            </div>
+        </div>
+        
+        <apex:outputPanel id="UnitTags" title="Unit Details">
+            <!-- <apex:outputPanel rendered="{!fpaQuantity>0}">-->
+            <apex:outputPanel rendered="{!FPALinkList.size>0}">
+                <div class="slds-added-properties slds-box slds-theme_default slds-m-top_small">
+                    <div class="slds-section slds-is-open">
+                        <h3 class="slds-section__title" style="background: #ddd;">
+                            <span class="slds-truncate" title="Section Title" style="padding: 0px 9px;">Unit Details</span>
+                        </h3>
+                        <br/>
+                        <apex:outputPanel style="float:right;">
+                            <apex:commandButton immediate="true" reRender="formId,BaseDetailsPanel"  styleClass="slds-button slds-button_success" style="margin:0.5%;margin-right:8.5%;font-size:15px;" value="+" action="{!addRow}" status="actStatusId"/>
+                        </apex:outputPanel>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <apex:repeat value="{!FPALinkMap}" var="Link"> 
+                            <div class="slds-form" role="list">
+                                <div class="slds-form__row">
+                                    <div class="slds-form__item " role="listitem">
+                                        <div class="slds-form-element slds-form-element_horizontal">
+                                            <span class="slds-form-element__label">Unit Tag <font color="red">*</font></span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    <apex:inputField styleClass="slds-input slds-combobox__input"  required="true" value="{!FPALinkMap[Link].name}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="slds-form__item " role="listitem">
+                                        <div class="slds-form-element slds-form-element_horizontal ">
+                                            <span class="slds-form-element__label">Item Quantity <font color="red">*</font></span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    <apex:inputField styleClass="slds-input slds-combobox__input"  required="true" value="{!FPALinkMap[Link].Quantity__c}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="slds-form__item " role="listitem">
+                                        <div class="slds-form-element slds-form-element_horizontal ">
+                                            <span class="slds-form-element__label">Lead Week(s) <font color="red">*</font></span>
+                                            <div class="slds-form-element__control">
+                                                <div class="slds-form-element__static">
+                                                    <apex:inputField styleClass="slds-input slds-combobox__input" required="true"  value="{!FPALinkMap[Link].Lead_Time__c}"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            
+                                            <apex:commandButton immediate="true" reRender="formId,BaseDetailsPanel" styleClass="slds-button slds-button_destructive" value="X"
+                                                                action="{!delRow}" status="actStatusId" oncomplete="alert(Link);" style="float:right;">
+                                                <apex:param name="index" value="{!Link}" assignTo="{!rowNumber}"/>
+                                            </apex:commandButton>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </apex:repeat>
+                        
+                    </div>
+                </div>
+            </apex:outputPanel>
+        </apex:outputPanel>
+        
+        <div>
+            
+            <apex:pageMessages id="error1" /> 
+        </div>
+        <div align="center">
+            <apex:commandButton styleClass="slds-button slds-button_neutral" style="margin-top:1%" reRender="error,error1" value="Save FPA" status="actStatusId" action="{!savefpa}" />
+            <apex:commandButton reRender="formId,BaseDetailsPanel" styleClass="slds-button slds-button_neutral" style="margin-top:1%" value="Cancel" status="actStatusId" action="{!backtofpasearch}" immediate="true" />
+        </div>
+    </apex:form>
+</apex:page>

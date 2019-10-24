@@ -1,0 +1,27 @@
+<apex:page StandardController="Case_Plan__c" extensions="CaseplansSendEmialNotification" >
+    <apex:pageBlock >
+        <apex:form >
+            <apex:pageMessages />              
+
+                <div>
+                    <div>
+                        <b>Are you sure you want to send emails? </b>
+                    </div>
+                    <div style="margin-top:1%;">
+                        <apex:commandButton action="{!emialAlert}" value="Send Email" disabled="{!disEMailbutton}" style="float:left"/>
+                    </div>
+                    <div>
+                        <apex:commandButton action="{!cancel}" value="Go Back" style="margin-left:3%;"/>
+                    </div>           
+                </div>
+            
+            <apex:outputPanel rendered="{!showresult}" >
+                <br/>
+                <apex:commandButton action="{!getEmailResult}" value="View Result" >
+                    <apex:param assignto="{!emialIDofCasePlans}" value="{!emialIDofCasePlans}"/>
+                </apex:commandButton>
+            </apex:outputPanel>
+        </apex:form>
+    </apex:pageBlock>
+    
+</apex:page>

@@ -1,0 +1,75 @@
+<apex:component controller="FPA_Email_Template_Controller"  access="global">
+    <apex:attribute name="FPAId" type="String" description="FPA ID" assignTo="{!FPA_Id}"/>
+    
+    <table style="width:100%" >
+        <tr><td style="width:12%;padding:2px">Date: </td><th style="text-align:left">{!FPA_rec.Created_Date__c}</th></tr>
+        <tr><td style="width:12%;padding:2px">Representative: </td><th style="text-align:left">{!FPA_rec.Sales_Person__r.Name}</th></tr>
+        <tr><td style="width:12%;padding:2px">Attention: </td><th style="text-align:left">{!FPA_rec.Office__r.Name}</th></tr>
+        <tr><td style="width:12%;padding:2px">Job Name: </td><th style="text-align:left">{!FPA_rec.Name}</th></tr>
+        <tr><td style="width:12%;padding:2px">Authorized By: </td><th style="text-align:left">{!FPA_rec.Application_Engineer__r.Name}</th></tr>
+        <tr><td style="width:12%;padding:2px">Phone Number: </td><th style="text-align:left">{!FPA_rec.Phone__c}</th></tr>
+        <tr><td style="width:12%;padding:2px">Product Brand Name: </td><th style="text-align:left">{!FPA_rec.Base_Unit_to_be_Modified__r.Description__c}</th></tr><br/>
+    </table>
+    <apex:outputPanel rendered="{!relatedSFO.size > 0}" >
+        <p style="text-decoration:underline;font-weight:bold;padding-top:10px;padding-bottom:5px;">Unit Details: </p>
+        <apex:variable value="{!0}" var="total_cost" />
+        <table  style="border-collapse:collapse;width:100%;padding-bottom:10px" >
+            <tr>
+                <th style="border:1px solid black;">
+                    Option Number
+                </th>
+                <th style="border:1px solid black;">
+                    Special Feature
+                </th>
+                
+                <th style="border:1px solid black;">
+                    Special Feature Description
+                </th>
+                <th style="border:1px solid black;">
+                    List Price
+                </th>
+            </tr>
+            <apex:variable var="totals" value="{!0}"/>
+            
+            <apex:repeat value="{!relatedSFO}" var="SFO">
+                <tr>
+                    <td style="border:1px solid black;padding:10px;text-align:center">{!SFO.SFO__r.Name}</td>
+                    <td style="border:1px solid black;padding:10px;text-align:center">{!SFO.SFO__r.Option_Parent__r.Name__c}</td>
+                    <td style="border:1px solid black;padding:10px;text-align:left">{!SFO.SFO__r.Option_Parent__r.Notes__c}</td>
+                    <td style="border:1px solid black;padding:10px;">{!SFO.List_Price__c}</td>
+                </tr>
+                <apex:variable var="totals" value="{! If(SFO.List_Price__c == 0,totals,totals+SFO.List_Price__c)}"/>
+            </apex:repeat>
+            <tr>
+                <th style="border:1px solid black;">
+                    
+                </th>
+                <th style="border:1px solid black;">
+                    
+                </th>
+                <th style="border:1px solid black;">
+                    Total
+                </th>
+                <th style="border:1px solid black;">
+                    <apex:outputText value="{!totals}" />
+                </th>
+            </tr>
+        </table>
+    </apex:outputPanel>
+    <apex:outputPanel rendered="{!relatedSFO.size = 0}">
+        <p>
+            No SFO's found.
+        </p>
+    </apex:outputPanel>
+    <br/>
+    <apex:outputpanel style="padding-top:10px">
+        <table  style="width:100%" >
+            <tr><td style="width:6%;padding:2px">Description: </td><th style="text-align:left">{!FPA_rec.Description__c}</th></tr><br/>
+            <tr><td style="width:12%;padding:2px"><b>Notes: </b> </td></tr>
+            <ol>
+                <li>Please send your response as Approved/Rejected.</li>
+                <li>Please click on Reply all while submitting your comments.</li>
+            </ol>
+        </table> <br/>
+    </apex:outputpanel>
+</apex:component>

@@ -1,0 +1,21 @@
+<apex:page standardcontroller="case" extensions="autoApproveQAFOFCases_Controller" recordSetVar="records"  standardStylesheets="true" lightningStylesheets="true" action="{!updateStatusOnCases}" showHeader="true" sidebar="true" >
+    
+    <apex:pageMessages /> 
+    <!--apex:detail subject="{!casePlanId}" showChatter="true" relatedList="true" relatedListHover="true" title="true" / -->
+    <apex:pageBlock >
+        <apex:form >
+            <div>
+                <apex:commandButton action="{!goback}" value="Go Back" style="margin-left:0%;"/>
+            </div> 
+            <apex:pageBlockTable value="{!selected}" var="record" rendered="false">
+            </apex:pageBlockTable>
+            <apex:pageblocktable value="{!approvedCases}" var="upd">
+                <apex:column value="{!upd.CaseNumber}" />
+                <apex:column value="{!upd.CreatedDate}" />
+                <apex:column value="{!upd.status}" />
+                <apex:column value="{!upd.Approval_Status__c}" />
+                
+            </apex:pageblocktable>
+        </apex:form>
+    </apex:pageBlock>
+</apex:page>

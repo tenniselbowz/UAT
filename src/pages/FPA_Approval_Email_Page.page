@@ -1,0 +1,24 @@
+<apex:page standardController="Factory_Pricing_Authorization__c" extensions="FPA_Email_Attachment_controller" renderAs="PDF">
+    <p align="right">
+        <!--apex:image url="https://daa--fpaspecial--c.cs77.content.force.com/servlet/servlet.ImageServer?id=0150t0000001RP1&oid=00D0t0000000j1d" height="50" width="200"/-->
+        <!--apex:image url="{!$Resource.Daikin_Logo}"/-->
+        <apex:image value="{!URLFOR($Resource.Daikin_Logo)}"/>
+        <br/><br/>    
+        FPA Number: {!Factory_Pricing_Authorization__c.FPA_Number__c}  <br/>
+        <!--Version   : {!Factory_Pricing_Authorization__c.Version__c}-->
+    </p>
+    <h3>Confidential – FPA Summary</h3>
+    <p><b>
+        PLEASE NOTE: The purpose of this form is to confirm pricing of special products and product modifications on the specific job as described below. 
+        To ensure you get the special modification that is requested, please include the FPA number, 
+        the List Add dollar amount and the special feature description in the “Specials Text” area. This information should be added to the “Specials” tab of the particular section that is being modified.
+        </b></p>
+    <ul><b>
+        <li>This Price is good on orders entered within sixty (60) days for this job only.</li>
+        <li>This special may affect standard lead times.</li>
+        <li>Consult shipping schedule at the time the order is released for estimated ship dates.</li>
+        <li>Pricing is based on specified quantities and number of designs.  If the quantity and/or number of line items changes, please consult your AE.</li>
+        </b></ul>  
+    <hr/>
+    <c:FPA_Approval_Email_Template FPAId="{!FPAId}" /> <!--aER0t000000CbVZ--->
+</apex:page>

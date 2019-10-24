@@ -1,0 +1,100 @@
+<apex:page standardController="Factory_Pricing_Authorization__c" extensions="FPARelatedAttachmentsDownloadController" showHeader="true" sidebar="true">
+    <head>
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+        
+        <script type="text/javascript">
+        var j$ = jQuery.noConflict();
+        
+        j$(document).ready(function() {
+            var fpaID = '{!fpaID}';	// Get FPA Id from the controller
+            if(!fpaID) {
+                j$('#message').text('Error: This page must be used in combination with a specific FPA. Please navigate to an FPA and click the Download Attachments button to use this page.');
+                return;
+            }
+            
+            var zipFile = new JSZip();			// Instantiate a new zip file
+            var zipFilename = '{!zipFilename}';	// Get filename from the controller
+            var count = 0;						// File count
+            
+            // Call controller function to get a list of XML files
+            // Response is an object with filename as key and XML body as value
+            Visualforce.remoting.Manager.invokeAction(
+                '{!$RemoteAction.FPARelatedAttachmentsDownloadController.getXMLFiles}',
+                fpaID,
+                function(result, event) {
+                    if(event.status) {
+                        // Loop through files and add each one to the zip
+                        // One result contains the Schedule Ids for all Schedule records that were used
+                        for(var xmlFilename in result) {
+                            count++;
+                            compressFile(zipFile, xmlFilename, result[xmlFilename]);
+                        }
+                        
+                        if(count > 0) {
+                            saveZip(zipFile);
+                        } else {
+                            alert('Here--1');
+                            j$('#message').html('No XML files were generated. Please make sure your FPA is setup correctly with at least one Attachment record. <a href="/' + accountId + '">Click here</a> to return to the FPA.');
+                        }
+                    } 
+                    else if(event.type === 'exception') {
+                        alert('Here--2');
+                        j$('#message').html('An error occurred and the XML files were not able to be generated. <a href="/' + fpaID + '">Click here</a> to return to the FPA.<br/>Error message: ' + event.message);
+                    } else {
+                        alert('Here--3');
+                        j$('#message').html('An error occurred and the XML files were not able to be generated. <a href="/' + fpaID + '">Click here</a> to return to the FPA.<br/>Error message: ' + event.message);
+                    }
+                }
+            );
+            
+            // Compress a file and add it to the zip
+            function compressFile(zipFile, filename, body) {
+                zipFile.file(filename, body, {base64: true});
+            }
+            
+            // Generate the zip file and send it back to Salesforce for attaching
+            function saveZip(zipFile) {
+                var data = zipFile.generate();
+                
+                Visualforce.remoting.Manager.invokeAction(
+                    '{!$RemoteAction.FPARelatedAttachmentsDownloadController.saveData}',
+                    fpaID,
+                    zipFilename,
+                    data,
+                    function(result, event) {
+                        if(event.status) {
+                            if(result.includes("SUCCESS")) {
+                                var attId = result.slice(8);
+                                
+                                //j$('#message').html('Success!');
+                                alert('The XML files were successfully generated and a new zip file has been attached to the FPA. You will now be redirected back to the FPA.');
+                                
+                                //window.location = '/servlet/servlet.FileDownload?file='+ attId;
+                                window.location = '/sfc/servlet.shepherd/version/download/'+ attId;
+
+                                
+                                
+                                
+                                //window.location = '/' + fpaID;
+                            } else {
+                                j$('#message').html('An error occurred and the XML files were not able to be generated. <a href="/' + fpaID + '">Click here</a> to return to the FPA.<br/>Error message: ' + result);
+                            }
+                        } else if(event.type === 'exception') {
+                            j$('#message').html('An error occurred and the XML files were not able to be generated. <a href="/' + fpaID + '">Click here</a> to return to the FPA.<br/>Error message: ' + event.message);
+                        } else {
+                            j$('#message').html('An error occurred and the XML files were not able to be generated. <a href="/' + fpaID + '">Click here</a> to return to the FPA.<br/>Error message: ' + event.message);
+                        }
+                    }
+                );
+            }
+        });
+        </script>
+    </head>
+    
+    <body>
+        <br/>
+        <h2 id="message"></h2>
+        <br/>
+    </body>
+</apex:page>

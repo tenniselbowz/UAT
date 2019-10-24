@@ -1,0 +1,13 @@
+.THIS .my_header{
+    font-weight: bold;
+
+}
+.THIS .slds-form-element__label{
+    font-weight: bold;
+    font-size: medium;
+    padding-bottom: 10px;
+    padding-top: 0px;
+}
+.THIS .my_template{
+    padding-left:15px;
+}

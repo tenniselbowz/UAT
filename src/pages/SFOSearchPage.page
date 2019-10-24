@@ -1,0 +1,505 @@
+<apex:page standardController="Factory_Pricing_Authorization__c" lightningStylesheets="true" extensions="SFOSearchController"
+           sidebar="false" docType="html-5.0">
+    <head> 
+        <style type="text/css">
+            .slds-scope img {
+            max-width: 100%;
+            height: fit-content;
+            }
+            .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:10px;
+            position: absolute;
+            padding: 3%;
+            /* These are the 3 css properties you will need to change so the popup 
+            displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can add 
+            the height property for a fixed size pop up if you want.*/
+            width: 75%;
+            margin-left: -500px;
+            top:100px;
+            
+            }
+            .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+            }
+            .scrollit {
+            overflow:scroll;
+            max-height:300px;
+            }
+            .closediv{		
+            border-left: 1px solid #d0d0d0;		
+            border-right: 1px solid #d0d0d0;		
+            border-top: 1px solid #d0d0d0;		
+            border-bottom: 1px solid #d0d0d0;		
+            }
+            
+        </style>
+        
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+        <apex:slds />
+        
+    </head>
+    
+    <apex:form id="formId" > 
+        
+        <apex:slds />
+        <div >
+            <span>
+                <a href="/{!FPARecord.Id}"> <apex:outputText value="<< Back to FPA Record" /></a>
+                <br/>
+            </span>
+            <br/>
+        </div>
+        
+            
+        <apex:actionFunction name="callSearch" action="{!doSearch}"  reRender="results_table,search_results_table,has_results,message,grandTotals" status="actStatusId"/>
+        <apex:actionFunction name="removeValues" reRender="search_results_table,has_results,message"/>
+        <apex:pageBlock mode="detail" title="Unit Details" id="UnitDetails">
+            <apex:variable var="listPriceGrandTotals" value="{!0}"/>
+            <apex:variable var="assumMultGrandTotals" value="{!0}"/>
+            <apex:variable var="netPriceGrandTotals" value="{!0}"/>
+            <apex:variable var="totalCostGrandTotals" value="{!0}"/>
+            <apex:variable var="MarginDollGrandTotals" value="{!0}"/>
+            <apex:variable var="MarginPercentGrandTotals" value="{!0}"/>
+            <apex:variable var="GrandQty" value="{!0}"/>
+            <apex:variable var="qtyListPriceGrandTotals" value="{!0}"/>
+            <apex:variable var="qtyAssumMultGrandTotals" value="{!0}"/>
+            <apex:variable var="qtyNetPriceGrandTotals" value="{!0}"/>
+            <apex:variable var="qtyMarginDollGrandTotals" value="{!0}"/>
+            <apex:variable var="qtyMarginPercGrandTotals" value="{!0}"/>
+            <apex:variable var="qtyTotalCostGrandTotals" value="{!0}"/>
+            <table style="width:98%;margin-left:10px">
+                <apex:repeat value="{!unitDetailsToSFOsMap}" var="unitTag">
+                    
+                    <tr>
+                        <th >
+                            Unit Tag
+                        </th><th></th><th></th>
+                        <th>
+                            Per Unit
+                        </th>
+                        <th ></th><th></th><th></th><th></th><th></th>
+                        <th>
+                            Total
+                        </th>
+                        <th>
+                            <apex:commandlink value="Add Related Option" action="{!showPopup}"
+                                              rerender="tstpopup,results_table" >
+                                <apex:param name="tag" value="{!unitTag}" assignTo="{!selectedTag}"/>
+                            </apex:commandlink>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            {!FPALinksMap[unitTag].name}
+                        </td>
+                        <td>
+                            
+                        </td>
+                        <td>
+                            
+                        </td>
+                    </tr>
+                    <tr style="background-color:Gainsboro;color:black;">
+                        <th style="border:1px solid black;"></th>
+                        <th style="border:1px solid black;">List Price</th>
+                        <th style="width:1%;border:1px solid black;">Mult</th>
+                        <th style="width:10%;border:1px solid black;">Net Price</th>
+                        <th style="width:10%;border:1px solid black;">Total Cost</th>
+                        <th style="width:10%;border:1px solid black;">Margin $</th>
+                        <th style="width:10%;border:1px solid black;">Margin %</th> 
+                        <th style="border:1px solid black;">Qty</th>
+                        <th style="width:10%;border:1px solid black;">List Price</th>
+                        <th style="width:10%;border:1px solid black;">Mult</th>
+                        <th style="width:10%;border:1px solid black;">Net Price</th>
+                        <th style="width:10%;border:1px solid black;">Total Cost</th>
+                        <th style="width:10%;border:1px solid black;">Margin $</th>
+                        <th style="width:20%;border:1px solid black;">Margin %</th> 
+                    </tr>
+                    
+                    <tr style="display:{!if(hasRelatedSFO[unitTag],'none','block')}"><th colspan="8">
+                        <p style="font-color:#4286f4">No Related SFOs Found.</p>
+                        </th>
+                    </tr>
+                    
+                    <apex:variable var="listPriceTotals" value="{!0}"/>
+                    <apex:variable var="assumMultTotals" value="{!0}"/>
+                    <apex:variable var="netPriceTotals" value="{!0}"/>
+                    <apex:variable var="totalCostTotals" value="{!0}"/>
+                    <apex:variable var="MarginDollTotals" value="{!0}"/>
+                    <apex:variable var="MarginPercentTotals" value="{!0}"/>
+                    <apex:variable var="Qty" value="{!0}"/>
+                    <apex:variable var="qtyListPriceTotals" value="{!0}"/>
+                    <apex:variable var="qtyAssumMultTotals" value="{!0}"/>
+                    <apex:variable var="qtyNetPriceTotals" value="{!0}"/>
+                    <apex:variable var="qtyMarginDollTotals" value="{!0}"/>
+                    <apex:variable var="qtyMarginPercTotals" value="{!0}"/>
+                    <apex:variable var="qtyTotalCostTotals" value="{!0}"/>
+                    
+                    <apex:repeat value="{!unitDetailsToSFOsMap[unitTag]}" var="sfo">
+                        <tr class="slds-hint-parent">
+                            <td style="width:5%;border:1px solid black;">{!sfo.Name}</td>
+                            <td style="width:5%;border:1px solid black;">${!sfo.List_Price__c}</td>
+                            <td style="width:10%;border:1px solid black;">{!sfo.Assumed_Multiplier__c}</td>
+                            <td style="width:10%;border:1px solid black;">${!sfo.Net_Price_Per_Unit__c}</td>
+                            <td style="width:10%;border:1px solid black;">${!ROUND(sfo.Total_Cost__c/FPALinksMap[unitTag].Quantity__c,2)}</td>
+                            <td style="width:10%;border:1px solid black;">${!sfo.Margin_per_unit_dlr__c} </td>
+                            <td style="width:10%;border:1px solid black;">{!sfo.Margin_per_unit__c}%</td>
+                            <td style="border:1px solid black;">{!FPALinksMap[unitTag].Quantity__c}</td>
+                            <td style="width:10%;border:1px solid black;">{!FPALinksMap[unitTag].Quantity__c*sfo.List_Price__c}</td>
+                            <td style="width:10%;border:1px solid black;">{!sfo.Assumed_Multiplier__c}</td>
+                            <td style="width:10%;border:1px solid black;">${!ROUND((FPALinksMap[unitTag].Quantity__c*sfo.List_Price__c)*sfo.Assumed_Multiplier__c,2)}</td>
+                            <td style="width:10%;border:1px solid black;">${!sfo.Total_Cost__c}</td>
+                            <td style="width:10%;border:1px solid black;">${!ROUND(((FPALinksMap[unitTag].Quantity__c*sfo.List_Price__c)*sfo.Assumed_Multiplier__c)-(sfo.Total_Cost__c),2)}</td>
+                            <td style="width:10%;border:1px solid black;">{!ROUND(sfo.Margin_per_unit__c,2)}%</td>
+                            <td>
+                                <apex:commandButton action="{!deleteRow}" immediate="true" reRender="UnitDetails"
+                                                    styleClass="slds-button slds-button_destructive slds-m-vertical_xxx-small " value="X" style="float:right;">
+                                    <apex:param name="test" value="{!sfo.Id}" assignTo="{!relatedSFOID}"/>
+                                </apex:commandButton>
+                            </td>
+                        </tr>
+                        <apex:variable var="listPriceTotals" value="{! If(sfo.List_Price__c =='' ,listPriceTotals,sfo.List_Price__c+listPriceTotals)}"/>
+                        <apex:variable var="assumMultTotals" value="{!sfo.Assumed_Multiplier__c}"/>
+                        <apex:variable var="netPriceTotals" value="{! If(sfo.Net_Price_Per_Unit__c =='' ,netPriceTotals,sfo.Net_Price_Per_Unit__c+netPriceTotals)}"/>
+                        <apex:variable var="qtyTotalCostTotals" value="{! If(sfo.Total_Cost__c/FPALinksMap[unitTag].Quantity__c =='' ,ROUND(qtyTotalCostTotals,2),ROUND(sfo.Total_Cost__c/FPALinksMap[unitTag].Quantity__c+qtyTotalCostTotals,2))}"/>
+                        <apex:variable var="MarginDollTotals" value="{! If(sfo.Margin_per_unit_dlr__c =='' ,MarginDollTotals,sfo.Margin_per_unit_dlr__c+MarginDollTotals)}"/>
+                        <apex:variable var="MarginPercentTotals" value="{!sfo.Margin_per_unit__c}"/>
+                        <apex:variable var="Qty" value="{!FPALinksMap[unitTag].Quantity__c}"/>
+                        <apex:variable var="qtyListPriceTotals" value="{! If(FPALinksMap[unitTag].Quantity__c*sfo.List_Price__c =='' ,qtyListPriceTotals,FPALinksMap[unitTag].Quantity__c*sfo.List_Price__c+qtyListPriceTotals)}"/>
+                        <apex:variable var="qtyAssumMultTotals" value="{!sfo.Assumed_Multiplier__c}"/>
+                        <apex:variable var="qtyNetPriceTotals" value="{! If((FPALinksMap[unitTag].Quantity__c*sfo.List_Price__c)*sfo.Assumed_Multiplier__c =='' ,ROUND(qtyNetPriceTotals,2),ROUND((FPALinksMap[unitTag].Quantity__c*sfo.List_Price__c)*sfo.Assumed_Multiplier__c+qtyNetPriceTotals,2))}"/>
+                        <apex:variable var="totalCostTotals" value="{! If(sfo.Total_Cost__c =='' ,totalCostTotals,sfo.Total_Cost__c+totalCostTotals)}"/>
+                        <apex:variable var="qtyMarginDollTotals" value="{!ROUND(If((FPALinksMap[unitTag].Quantity__c*sfo.List_Price__c)*(sfo.Assumed_Multiplier__c)-(sfo.Total_Cost__c) =='' ,qtyMarginDollTotals,(FPALinksMap[unitTag].Quantity__c*sfo.List_Price__c)*(sfo.Assumed_Multiplier__c)-(sfo.Total_Cost__c)+qtyMarginDollTotals),2)}"/>
+                        <apex:variable var="qtyMarginPercTotals" value="{!ROUND(sfo.Margin_per_unit__c,2)}"/>
+                        
+                    </apex:repeat>
+                    
+                    <tr class="slds-hint-parent">
+                        <th style="border:1px solid black;">
+                            Total
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="${!listPriceTotals}" />
+                            <apex:variable var="listPriceGrandTotals" value="{!listPriceGrandTotals+listPriceTotals}"/>
+                            
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="{!assumMultTotals}" />
+                            <apex:variable var="assumMultGrandTotals" value="{!assumMultTotals}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="${!netPriceTotals}" />
+                            <apex:variable var="netPriceGrandTotals" value="{!netPriceGrandTotals+netPriceTotals}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="${!qtyTotalCostTotals}" />
+                            <apex:variable var="qtyTotalCostGrandTotals" value="{!(qtyTotalCostGrandTotals+qtyTotalCostTotals)}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="${!MarginDollTotals}" />
+                            <apex:variable var="MarginDollGrandTotals" value="{!MarginDollGrandTotals+MarginDollTotals}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="{!MarginPercentTotals}%" />
+                            <apex:variable var="MarginPercentGrandTotals" value="{!MarginPercentTotals}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="{!FPALinksMap[unitTag].Quantity__c}" />
+                            <apex:variable var="GrandQty" value="{!GrandQty+FPALinksMap[unitTag].Quantity__c}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="${!qtyListPriceTotals}" />
+                            <apex:variable var="qtyListPriceGrandTotals" value="{!qtyListPriceGrandTotals+qtyListPriceTotals}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="{!qtyAssumMultTotals}" />
+                            <apex:variable var="qtyAssumMultGrandTotals" value="{!qtyAssumMultTotals}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="${!qtyNetPriceTotals}" />
+                            <apex:variable var="qtyNetPriceGrandTotals" value="{!ROUND(qtyNetPriceGrandTotals+qtyNetPriceTotals,2)}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="${!totalCostTotals}" />
+                            <apex:variable var="totalCostGrandTotals" value="{!(totalCostTotals+totalCostGrandTotals)}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="${!qtyMarginDollTotals}" />
+                            <apex:variable var="qtyMarginDollGrandTotals" value="{!qtyMarginDollGrandTotals+qtyMarginDollTotals}"/>
+                        </th>
+                        <th style="border:1px solid black;">
+                            <apex:outputText value="{!qtyMarginPercTotals}%" />
+                            <apex:variable var="qtyMarginPercGrandTotals" value="{!qtyMarginPercTotals}"/>
+                        </th>
+                    </tr>
+                    <tr><th>&nbsp;</th></tr>
+                </apex:repeat>
+                <tr>
+                    <th>
+                        JOB TOTAL
+                    </th><th></th><th></th>
+                    <th>
+                        Per Unit
+                    </th><th></th><th></th><th></th><th></th><th></th>
+                    <th>
+                        Total
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                </tr>
+                <tr style="background-color:Gainsboro;color:black;" id="grandTotals">
+                    <th style="width:10%;border:1px solid black;">ALL</th>
+                    <th style="width:10%;border:1px solid black;">List Price</th>
+                    <th style="width:1%;border:1px solid black;">Mult</th>
+                    <th style="width:10%;border:1px solid black;">Net Price</th>
+                    <th style="width:10%;border:1px solid black;">Total Cost</th>
+                    <th style="width:10%;border:1px solid black;">Margin $</th>
+                    <th style="width:10%;border:1px solid black;">Margin %</th> 
+                    <th style="width:1%;border:1px solid black;">Qty</th>
+                    <th style="width:10%;border:1px solid black;">List Price</th>
+                    <th style="width:10%;border:1px solid black;">Mult</th>
+                    <th style="width:10%;border:1px solid black;">Net Price</th>
+                    <th style="width:10%;border:1px solid black;">Total Cost</th>
+                    <th style="width:10%;border:1px solid black;">Margin $</th>
+                    <th style="width:1%;border:1px solid black;">Margin %</th> 
+                </tr>
+                
+                <tr>
+                    <th style="border:1px solid black;">
+                        Total
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="${!listPriceGrandTotals}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="{!Factory_Pricing_Authorization__c.Multiplier__c}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="${!netPriceGrandTotals}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="${!qtyTotalCostGrandTotals}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="${!MarginDollGrandTotals}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="{!Factory_Pricing_Authorization__c.Marginn__c}%" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="{!GrandQty}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="${!qtyListPriceGrandTotals}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="{!Factory_Pricing_Authorization__c.Multiplier__c}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="${!qtyNetPriceGrandTotals}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="${!totalCostGrandTotals}" />
+                    </th>                    
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="${!qtyMarginDollGrandTotals}" />
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="{!Factory_Pricing_Authorization__c.Marginn__c}%" />
+                    </th>
+                </tr>
+            </table>
+            
+            <table style="width:95%;margin-left:10px">
+                
+            </table>
+            <br/>
+        </apex:pageBlock>
+        <apex:outputPanel id="tstpopup" layout="block" >
+            <apex:outputPanel styleClass="popupBackground" layout="block" rendered="{!displayPopUp}"/>
+            <apex:outputPanel styleClass="custPopup" layout="block"  rendered="{!displayPopUp}">
+                <div><apex:commandButton action="{!closePopup}" immediate="true" reRender="tstpopup,results" 
+                                         styleClass="slds-button slds-button_destructive slds-m-vertical_xxx-small " value="X" style="float:right;" /></div><br/><br/>
+                
+                <div style="width:95%;">
+                    <apex:pageMessages ></apex:pageMessages>
+                </div>
+                <apex:outputPanel >
+                    <apex:actionStatus id="actStatusId">
+                        <apex:facet name="start">
+                            <div class="waitingSearchDiv" id="el_loading" style="background-color: #DCD6D6; height: 100%;opacity:0.65;width:100%;"> 
+                                <div class="waitingHolder" style="width: 91px;">
+                                    <img  src="/img/loading.gif" title="Please Wait..." />
+                                    <span class="waitingDescription">Fetching info...</span>
+                                </div>
+                            </div>
+                        </apex:facet>
+                        
+                    </apex:actionStatus>
+                </apex:outputPanel>
+                
+                <apex:pageBlock title="Step-1: Option Search" id="SFo_Search_box" rendered="{!(!goBack)}" >  
+                    <script >
+                    
+                    function myFunction2()
+                    { 
+                        removeValues();
+                        var searchval = (document.getElementById('search').value).trim();
+                        var searchval2 = (document.getElementById('search2').value).trim();
+                        if((searchval == '' && searchval2 == '')){
+                            alert('Search cannot be empty');
+                        }
+                        else if((searchval.length < 3 && searchval2.length < 3) || (searchval.length < 3 && searchval2.length == '') ||
+                                (searchval.length == '' && searchval2.length < 3)){
+                            alert('Please enter minimum 3 letters');
+                        }
+                            else {
+                                document.getElementById('{!$Component.searchhidden}').value = searchval;
+                                document.getElementById('{!$Component.searchhidden2}').value = searchval2;
+                                callSearch();
+                            }
+                        
+                        //  delete(document.getElementById('search2').value);
+                    }
+                    
+                    /* function setdata2()
+                    {
+                        var listofnames = new Array();
+                        //  var inputname;
+                        var inputname = (document.getElementById('search').value).trim();
+                        var inputname2 = (document.getElementById('search2').value).trim();
+                        var autoSearch = document.getElementById('{!$Component.autosearch}').checked;
+                        //alert('test'+autoSearch);
+                        if(inputname.length < 3)
+                        {
+                            removeValues();
+                        }
+                        
+                        if(inputname.length > 2 && autoSearch )
+                        {
+                                document.getElementById('{!$Component.searchhidden}').value = inputname;
+                            	document.getElementById('{!$Component.searchhidden2}').value = inputname2;
+                            callSearch();
+                        }
+                    }*/
+                    
+                    </script>
+                    
+                    
+                    <apex:outputPanel >
+                        <table style="width:100%" id="myTable" >
+                            <tr><td>
+                                <input size="25%" list="names" id="search" placeholder="Search For Approved Options" value="{!searchVal}" onkeyup="setdata2();" />&nbsp;&nbsp;
+                                <!-- <apex:commandbutton value="Search" rerender="results_table" onClick="myFunction();"/> -->
+                                <input size="25%" list="names2" id="search2" placeholder="Search For Special Feature" value="{!searchsfoVal}" onkeyup="setdata2();" />&nbsp;&nbsp;
+                                <apex:commandbutton value="Search" rerender="results_table,tstpopup" onClick="myFunction2();"
+                                                    styleClass="slds-button slds-button_brand"/>
+                                <apex:inputHidden value="{!searchVal}" id="searchhidden" />
+                                <apex:inputHidden value="{!searchsfoVal}" id="searchhidden2" />
+                                </td></tr>
+                        </table>
+                    </apex:outputPanel>
+                    
+                </apex:pageBlock>
+                <apex:outputPanel id="results_table" >
+                    <script>
+                    $(document).ready(function() {
+                        $('#example').DataTable( {
+                            stateSave: true;
+                            paging:false;
+                        } );
+                    } );
+                    </script>
+                    <apex:pageBlock title="Step-2: Search Results({!total_size})"
+                                    rendered="{!noresult}" id="search_results_table" >
+                        <apex:outputpanel rendered="{!sfoWrapperList.size = 0}" id="no_results">
+                            <p style="font-size:18px;text-align: center;">
+                                No results found
+                            </p>
+                        </apex:outputpanel>
+                    </apex:pageBlock>
+                    <apex:pageBlock title="Step-2: Search Results({!total_size})" rendered="{!sfoWrapperList.size != 0}">
+                        <div class="scrollit">
+                            <table id="example" >
+                                <thead>
+                                    <tr>
+                                        <th>Select</th>
+                                        <th>Option Number</th>
+                                        <th>Option Name</th>
+                                        <th>Parent Number</th>
+                                        <th>List Markup	</th>
+                                        <th >Assumed <br/>Multiplier	</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                
+                                <tbody >
+                                    <apex:repeat value="{!sfoWrapperList}" var="y">
+                                        <tr>
+                                            <td >
+                                                <apex:inputCheckbox value="{!y.isSelected}" style="border: 1px solid black;"/>
+                                            </td>
+                                            <td >
+                                                
+                                                <apex:outputLink value="/{!y.sfoObj.id}">  {!y.sfoObj.Name} 
+                                                </apex:outputLink>
+                                            </td>
+                                            <td >
+                                                
+                                                <apex:outputLink value="/{!y.sfoObj.id}">  {!y.sfoObj.Name__c} 
+                                                </apex:outputLink>
+                                            </td>
+                                            <td >
+                                                
+                                                <apex:outputLink value="/{!y.sfoObj.Option_Parent__c}">
+                                                    {!y.sfoObj.Option_Parent__r.Name} 
+                                                </apex:outputLink>
+                                            </td>
+                                            <td ><apex:inputfield value="{!y.relatedSFO.List_Markup__c}"  required="true" /></td>
+                                            
+                                            <td ><apex:outputfield value="{!y.relatedSFO.Assumed_Multiplier__c}" /></td>
+                                            <td ><apex:inputfield value="{!y.relatedSFO.Notes__c}" /></td>
+                                        </tr>
+                                    </apex:repeat>
+                                </tbody>
+                                
+                            </table></div><br/>
+                        <apex:commandButton value="Associate Option" action="{!associateSFO}" rerender="tstpopup,UnitDetails,formId,results" styleClass="slds-button slds-button_brand" />
+                        <!--<apex:commandButton value="Close" action="{!closePopup}" rerender="tstpopup"/>-->
+                        
+                        <apex:outputPanel >
+                            <div style="text-align: right">Page :{!pageno} Of {!totalpages}&nbsp;
+                                <apex:commandButton action="{!Beginning}" title="Beginning" value="<<First" status="actStatusId"
+                                                    reRender="results_table,tstpopup" rendered="{! !disablePrevious}" styleClass="slds-button slds-button_brand"/>
+                                <apex:commandButton action="{!Previous}" title="Previous" value="<Previous" status="actStatusId"
+                                                    reRender="results_table,tstpopup" rendered="{! !disablePrevious}" styleClass="slds-button slds-button_brand"/>        
+                                <apex:commandButton action="{!Next}" title="Next" value=">Next" status="actStatusId"
+                                                    reRender="results_table,tstpopup" rendered="{! !disableNext}" styleClass="slds-button slds-button_brand"/>
+                                <apex:commandButton action="{!End}" title="End" value=">>Last" status="actStatusId"
+                                                    reRender="results_table,tstpopup" rendered="{! !disableNext}" styleClass="slds-button slds-button_brand"/>  
+                            </div>
+                        </apex:outputPanel>
+                    </apex:pageBlock>
+                </apex:outputPanel>
+            </apex:outputPanel>
+        </apex:outputPanel>
+    </apex:form>
+</apex:page>

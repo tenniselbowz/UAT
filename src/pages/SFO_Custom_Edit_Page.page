@@ -1,0 +1,87 @@
+<apex:page tabStyle="Special_Feature_Option__c"  standardController="Special_Feature_Option__c"
+           extensions="SFO_Custom_Edit_Page_Controller">
+    
+    <apex:form >
+        
+        <apex:pageBlock >
+            <apex:pageMessages ></apex:pageMessages>
+            
+            <apex:pageBlockSection columns="2" title="Information" collapsible="true" id="info">
+                <apex:inputField value="{!sfo_Obj.Individual_Identifier__c}" />
+                <apex:inputField value="{!sfo_Obj.Group_Identifier__c}" />
+                <apex:inputField value="{!sfo_Obj.Notes__c}" />
+                <!--<apex:inputField value="{!sfo_Obj.Revision_Version__c}" />
+<apex:inputField value="{!sfo_Obj.Parent_SFO__c}" />-->
+                <apex:inputField value="{!sfo_Obj.Base_Unit_to_be_Modified__c}" rendered="{!!showInVersion}" required="true" />
+                <apex:inputField value="{!sfo_Obj.Base_Unit_to_be_Modified__c}" rendered="{!showInVersion}" required="true" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title="Other Info" collapsible="true">
+                <apex:inputField value="{!sfo_Obj.Purchased_material_cost__c}" />
+                <apex:inputField value="{!sfo_Obj.Raw_material_cost__c}" />
+                <apex:inputField value="{!sfo_Obj.Drafting_hours__c}" />
+                <apex:inputField value="{!sfo_Obj.Drafting_cost__c}" />
+                <!--<apex:inputField value="{!sfo_Obj.Revision_number__c}" />-->
+                <apex:inputField value="{!sfo_Obj.Revision_date__c  }" />
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" title="Estimates" collapsible="true">
+                
+                <apex:inputField value="{!sfo_Obj.Fixed_Unit_Cost__c}" />
+                <apex:inputField value="{!sfo_Obj.Variable_Unit_Cost__c}" />
+                <apex:inputField value="{!sfo_Obj.Unit_Tags__c}" />
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" title="Additional Information" collapsible="true"
+                                   rendered="{!dynamicWrapperList.size > 0}" >
+                
+                <apex:repeat value="{!dynamicWrapperList}" var="f">
+                    <apex:pageBlockSectionItem rendered="{!f.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Text'}" >
+                        <apex:outputLabel >{!f.sfo_dynamic_field_obj.SFO_Field__r.Name}</apex:outputLabel>
+                        <apex:inputfield value="{!f.sfo_dynamic_field_obj.Field_Value__c}"
+                                         required="{!if(f.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!f.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Number'}" >
+                        <apex:outputLabel >{!f.sfo_dynamic_field_obj.SFO_Field__r.Name}</apex:outputLabel>
+                        <apex:inputfield value="{!f.sfo_dynamic_field_obj.Field_Value__c}"
+                                         required="{!if(f.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!f.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Picklist'}">
+                        <apex:outputLabel >{!f.sfo_dynamic_field_obj.SFO_Field__r.Name}</apex:outputLabel>
+                        <apex:selectList size="1" value="{!f.sfo_dynamic_field_obj.Field_Value__c}"
+                                         required="{!if(f.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}" >
+                            <apex:selectOptions value="{!f.dynamiclistEntries}"></apex:selectOptions>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:repeat>
+                <apex:repeat value="{!dynamicWrapperList2}" var="f">
+                    <apex:pageBlockSectionItem rendered="{!f.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Text'}" >
+                        <apex:outputLabel >{!f.sfo_dynamic_field_obj.SFO_Field__r.Name}</apex:outputLabel>
+                        <apex:inputfield value="{!f.sfo_dynamic_field_obj.Field_Value__c}"
+                                         required="{!if(f.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}" />
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!f.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Number'}" >
+                        <apex:outputLabel >{!f.sfo_dynamic_field_obj.SFO_Field__r.Name}</apex:outputLabel>
+                        <apex:inputfield value="{!f.sfo_dynamic_field_obj.Field_Value__c}"
+                                         required="{!if(f.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}"/>
+                    </apex:pageBlockSectionItem>
+                    <apex:pageBlockSectionItem rendered="{!f.sfo_dynamic_field_obj.SFO_Field__r.Field_Data_Type__c = 'Picklist'}">
+                        <apex:outputLabel >{!f.sfo_dynamic_field_obj.SFO_Field__r.Name}</apex:outputLabel>
+                        <apex:selectList size="1" value="{!f.sfo_dynamic_field_obj.Field_Value__c}"
+                                         required="{!if(f.sfo_dynamic_field_obj.SFO_Field__r.Required__c, 'true','false')}" >
+                            <apex:selectOptions value="{!f.dynamiclistEntries}"></apex:selectOptions>
+                        </apex:selectList>
+                    </apex:pageBlockSectionItem>
+                    
+                </apex:repeat>
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons >
+                
+                <apex:commandButton action="{!saveSFO}" value="Save"/>
+                <!--<apex:commandButton action="{!saveAndNew}" value="Save & New" />-->
+                <apex:commandButton action="{!cancel}" value="Cancel" immediate="true" />
+                
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

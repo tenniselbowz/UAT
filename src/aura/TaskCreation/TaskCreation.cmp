@@ -1,0 +1,54 @@
+<aura:component controller="DSO_Sales_Call_Task_Controller"
+                implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <ltng:require styles="{!$Resource.popupCSS}" />
+    <aura:handler name="init" action="{!c.init}" value="{!this}" />
+    <aura:attribute name="taskObj" type="Task" default="{'sobjectType':'Task','Name':'','OwnerId':'','Sales Call Date':''})" />
+    <aura:attribute name="relatedTasks" type="TaskRelation" />
+    <aura:attribute name="SalesCallScore" type="string" default="" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="accId" type="Sobject" />
+        <lightning:navigation aura:id="navService"/>
+    
+    <aura:handler name="componentEventFired" event="c:evenForDSO" action="{!c.onChangeVal}"></aura:handler>
+    <aura:handler name="componentEvent" event="c:eventForAccountChange" action="{!c.onChangeVal}"></aura:handler>
+    
+    <aura:attribute name="ParentAttribute" type="String" default="”"></aura:attribute>
+    
+    <br/><br/>
+    <div class="panel panel-default" >
+        
+        <div class="panel-body" >
+            <div style="width:100%;float:left;font-size:16px">
+                <div style="width:50%;float:left;">
+                    <span style="word-break:break-all;"><b>*Executed By</b></span>
+                    <span style="word-break:break-all;"><c:customLookup SObjectName="User" taskObj="{!v.taskObj}"/></span><br/>
+                    <span style="word-break:break-all;"><b>Sales Call Date</b></span>
+                    <span style="word-break:break-all;width:200%;"><ui:inputDate aura:id="expdate" label="" class="inputDate field" 
+                                                                                 value="{!v.taskObj.Sales_Call_Date__c}" displayDatePicker="true" /></span><br/>
+                    <span style="word-break:break-all;"><b>Valid Business Reason</b>&nbsp;<small><small><i>(* Required)</i></small></small></span>
+                    <span style="word-break:break-all;width:50%;">
+                        <force:inputField class="picklist" value="{!v.taskObj.Valid_Business_Reason__c}" change="{!c.onChangeVal}" />
+                    </span><br/>    
+                    <span style="word-break:break-all;"><b>Sales Call Score</b></span><br/>
+                    <span style="word-break:break-all;"><ui:outputText class="SalesCallScore" value="{!v.SalesCallScore}" /></span><br/>
+                </div>
+                
+                <div style="width:50%;float:left;">
+                    <span style="word-break:break-all;"><b>Related Account</b></span>
+                    <span style="word-break:break-all;"><c:customLookup SObjectName="Account" taskObj="{!v.taskObj}" accId ="{!v.accId}" /></span><br/>
+                    <span style="word-break:break-all;"><b>Related Contacts</b>&nbsp;<small><small><i>(* You can select multiple)</i></small></small></span>
+                    <span style="word-break:break-all;"><c:reUsableMultiSelectContactLookup objectAPIName="Contact" taskObj="{!v.taskObj}"
+                                                                                            relatedTasks="{!v.relatedTasks}" accId="{!v.accId}" /></span><br/><br/>
+                </div>
+            </div>
+            <br/>
+            <div style="width:100%;float:left;font-size:16px">
+                <span style="word-break:break-all;margin-bottom:3px;"><b>Comments</b></span><br/>
+                <span style="word-break:break-all;margin-bottom:3px;"><ui:inputTextArea aura:id="comments" value="{!v.taskObj.comment}"
+                                                                                        rows="5" /></span>
+            </div>
+            <div style="width:100%;float:left;font-size:16px">
+                <center><lightning:button variant="brand" label="Save" title="Save" onclick="{! c.onSave }" /></center>  </div>
+        </div>
+    </div>
+</aura:component>

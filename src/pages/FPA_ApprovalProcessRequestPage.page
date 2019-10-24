@@ -1,0 +1,23 @@
+<apex:page standardController="Factory_Pricing_Authorization__c" extensions="FPATriggerHandler" id="thePage">
+    <apex:outputPanel rendered="{!missed_approvals == 'Approval level is required'} ">
+        <script>
+        if(confirm(missed_approval))
+        {
+            redirectToFPA();
+            //sforce.one.navigateToSObject("fpaId","Detail");
+        }
+        </script>
+    </apex:outputPanel>
+    <script>
+    window.onload = function() 
+    {   
+        validateApproval();
+    }
+    </script>
+    <apex:form >
+        <apex:actionFunction name="validateApproval" action="{!performApprovals}" 
+                             rerender="thePage" oncomplete="alert('{!missed_approvals}');updateFPA();" />
+        <apex:actionFunction name="updateFPA" action="{!updateFPA_Approval_Status}" reRender="false" />	
+        <apex:detail relatedList="true" />
+    </apex:form>
+</apex:page>

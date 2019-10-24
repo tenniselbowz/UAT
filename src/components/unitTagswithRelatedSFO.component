@@ -1,0 +1,217 @@
+<apex:component controller="unitTagewithRelatedSFO_Controller" access="global">
+    
+    <style>
+        .tab tbody tr td{
+        border="1px solid green";
+        }
+    </style>
+    <!--script>
+window.location.href = "data:application/pdf;base64,{!attch.body}";
+</script -->
+    
+    <apex:attribute name="FPAId" type="String" description="FPAsID" assignTo="{!fpa_ID}"/>
+    <apex:outputPanel >
+        <table  style="width:100%" >
+            <tr><td style="width:12%;padding:2px">Job Name: </td><th style="text-align:left">{!FPA_rec.Name}</th></tr>
+            <tr><td style="width:12%;padding:2px">FPA Number: </td><th style="text-align:left">{!FPA_rec.FPA_Number__c}</th></tr>
+            <tr><td style="width:12%;padding:2px">SO Number: </td><th style="text-align:left">{!FPA_rec.SO_Number__c}</th></tr>
+            <tr><td style="width:12%;padding:2px">Product Brand Name: </td><th style="text-align:left">{!FPA_rec.Base_Unit_to_be_Modified__r.Description__c}</th></tr>
+        </table> <br/>
+        <table style="width:100%">
+            <tr><td style="width:12%;padding:2px">Rep Office: </td><th style="text-align:left">{!FPA_rec.Office__r.Name}</th></tr>
+            <tr><td style="width:12%;padding:2px">Sales Person: </td><th style="text-align:left">{!FPA_rec.Sales_Person__r.name}</th></tr>
+        </table>
+        
+        <!-- Display FPA approval criteria  -->
+        <p style="text-decoration:underline;font-weight:bold;padding-top:5px;padding-bottom:1px;">Approval Criteria</p>
+        <p style="text-decoration:underline;font-weight:bold;padding-top:5px;padding-bottom:1px;">FPA Approval Level - {!FPA_rec.Approval_Level__c}</p>
+        <table style="border-collapse:collapse;padding-bottom:10px">
+            <tbody>
+                <tr>
+                    <td style="border:1px solid black;">QTY of Line Items with Specials</td>
+                    <td style="border:1px solid black;">{!FPA_rec.QTY_of_line_Item_with_Specials__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">Max QTY of Units on Single Line Item</td>
+                    <td style="border:1px solid black;">{!FPA_rec.Max_QTY_of_Units_On_Single_Line_Item__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">Max Total Material Cost for Single Line Item</td>
+                    <td style="border:1px solid black;">{!FPA_rec.MaxTotalMaterialCostforSingleLine__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">FPA Total Drafting Hours</td>
+                    <td style="border:1px solid black;">{!FPA_rec.FPATotalDraftingHours__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">Max Total Drafting Hours for Single Line Item</td>
+                    <td style="border:1px solid black;">{!FPA_rec.Max_Total_Drafting_Hours_per_Single_line__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">FPA Total Engineering Hours</td>
+                    <td style="border:1px solid black;">{!FPA_rec.FPATotalEngineeringHours__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">Max Total Engineering Hours for Single Line Item</td>
+                    <td style="border:1px solid black;">{!FPA_rec.Max_Total_Engineering_Hours_for_Single__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">FPA Total Manufacturing Hours</td>
+                    <td style="border:1px solid black;">{!FPA_rec.FPATotalManufacturingHours__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">Max Total Manufacturing Hours for Single Line Item</td>
+                    <td style="border:1px solid black;">{!FPA_rec.Max_Total_Manufacturing_Hours_for_Single__c}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table  style="width:100%" >
+            <tr><td style="width:12%;padding:2px">Risk: </td><th style="text-align:left">{!FPA_rec.Risk__c}</th></tr>
+            <tr><td style="width:12%;padding:2px">Risk Mitigation Plan: </td><th style="text-align:left">{!FPA_rec.Risk_Mitigation_Plan__c}</th></tr>
+        </table> 
+        <!--                      -->
+        <p style="text-decoration:underline;font-weight:bold;padding-top:5px;padding-bottom:1px;">Margin Analysis</p>
+        <table style="border-collapse:collapse;padding-bottom:10px">
+            <tbody>
+                <tr>
+                    <td style="border:1px solid black;">Assumed Multiplier</td>
+                    <td style="border:1px solid black;">{!FPA_rec.Multiplier__c}</td>
+                </tr>
+                <!--tr>
+<td style="border:1px solid black;">Average List Price Markup</td>
+<td style="border:1px solid black;">{!FPA_rec.Average_List_Price_Markup__c}</td>
+</tr -->
+                <tr>
+                    <td style="border:1px solid black;">Total Cost </td>
+                    <td style="border:1px solid black;">${!FPA_rec.Total_Cost__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">Total List Price </td>
+                    <td style="border:1px solid black;">${!FPA_rec.Total_List_Price__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">Total Margin $</td>
+                    <td style="border:1px solid black;">{!FPA_rec.Total_Margind__c}</td>
+                </tr>
+                <tr>
+                    <td style="border:1px solid black;">Total Margin %</td>
+                    <td style="border:1px solid black;">{!FPA_rec.Total_Marginp__c}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p style="text-decoration:underline;font-weight:bold;padding-top:10px;padding-bottom:5px;">FPA Approval Rating</p>
+        <apex:repeat value="{!unitTagMap}" var="unit">
+            <table  style="width:100%" >
+                Unit Tag <b>{!fpaLinkMap[unit].name}</b> - Quantity <b>{!fpaLinkMap[unit].Quantity__c}</b> - Lead Time (wks) <b>{!fpaLinkMap[unit].Lead_Time__c}</b>
+            </table>
+            <table  style="border-collapse:collapse;width:100%;padding-bottom:10px" >
+                <tr>
+                    <th style="border:1px solid black;">
+                        Option Number
+                    </th>
+                    <th style="border:1px solid black;">
+                        Special Feature
+                    </th>              
+                    <th style="border:1px solid black;">
+                        Drafting Hours
+                    </th>
+                    <th style="border:1px solid black;">
+                        Eng. Hours
+                    </th>
+                    <th style="border:1px solid black;">
+                        Mfg. Hours
+                    </th>
+                    <th style="border:1px solid black;">
+                        Material Cost
+                    </th>
+                    <th style="border:1px solid black;">
+                        Modifier Cost
+                    </th>
+                    <th style="border:1px solid black;">
+                        Total Cost
+                    </th>
+                    <th style="border:1px solid black;">
+                        Margin
+                    </th>
+                </tr>
+                <apex:variable var="drHrs" value="{!0}"/>    
+                <apex:variable var="enHrs" value="{!0}"/>
+                <apex:variable var="mfHrs" value="{!0}"/>
+                <apex:variable var="mtHrs" value="{!0}"/>
+                <apex:variable var="mdHrs" value="{!0}"/>
+                <apex:variable var="totCost" value="{!0}"/>
+                <apex:repeat value="{!unitRelatedSFOWrap[unit]}" var="SFO">
+                    <tr>
+                        <td style="border:1px solid black;padding:10px;text-align:center">{!SFO.optionName}</td>
+                        <td style="border:1px solid black;padding:10px;text-align:left">{!SFO.specialFeature}</td>
+                        <td style="border:1px solid black;padding:10px;text-align: center; vertical-align: middle;">{!SFO.drafHours}</td>
+                        <td style="border:1px solid black;padding:10px;text-align: center; vertical-align: middle;">{!SFO.engHours}</td>
+                        <td style="border:1px solid black;padding:10px;text-align: center; vertical-align: middle;">{!SFO.mfgHours}</td>
+                        <td style="border:1px solid black;padding:10px;text-align: center; vertical-align: middle;">{!If(SFO.matCost =='' ,'',"$")}
+                            <apex:outputText value="{0, number, ###,###,###,###.00}">
+                                <apex:param value="{!SFO.matCost}" />
+                            </apex:outputText>  
+                        </td>
+                        <td style="border:1px solid black;padding:10px;text-align: center; vertical-align: middle;">{!If(SFO.modiCost =='' ,'',"$")}
+                            <apex:outputText value="{0, number, ###,###,###,###.00}">
+                                <apex:param value="{!SFO.modiCost}" />
+                            </apex:outputText> 
+                        </td>
+                        <td style="border:1px solid black;padding:10px;text-align: center; vertical-align: middle;">{!If(SFO.totalCost =='' ,'',"$")}
+                            <apex:outputText value="{0, number, ###,###,###,###.00}">
+                                <apex:param value="{!SFO.totalCost}" />
+                            </apex:outputText> 
+                        </td>
+                        <td style="border:1px solid black;padding:10px;text-align: center; vertical-align: middle;">
+                            {!SFO.margin}{!If(SFO.margin =='' ,'',"%")}</td>
+                    </tr>
+                    <apex:variable var="drHrs" value="{! If(SFO.drafHours =='' ,drHrs,SFO.drafHours+drHrs)}"/>    
+                    <apex:variable var="enHrs" value="{! If(SFO.engHours =='' ,enHrs,SFO.engHours+enHrs)}"/>
+                    <apex:variable var="mfHrs" value="{! If(SFO.mfgHours =='' ,mfHrs,SFO.mfgHours+mfHrs)}"/>
+                    <apex:variable var="mtHrs" value="{! If(SFO.matCost =='' ,mtHrs,SFO.matCost+mtHrs)}"/>
+                    <apex:variable var="mdHrs" value="{! If(SFO.modiCost =='' ,mdHrs,SFO.modiCost+mdHrs)}"/>
+                    <apex:variable var="totCost" value="{!If(SFO.totalCost =='' ,totCost,SFO.totalCost+totCost)}"/>
+                </apex:repeat>
+                <tr>
+                    <th style="border:1px solid black;">
+                        Totals
+                    </th>
+                    <th style="border:1px solid black;">
+                        <apex:outputText value="" />
+                    </th>
+                    <th style="border:1px solid black;padding:10px;">
+                        <apex:outputText value="{!drHrs}" />
+                    </th>
+                    <th style="border:1px solid black;padding:10px;">
+                        <apex:outputText value="{!enHrs}" />
+                    </th>
+                    <th style="border:1px solid black;padding:10px;">
+                        <apex:outputText value="{!mfHrs}"/>
+                    </th>
+                    <th style="border:1px solid black;padding:10px;">
+                        <apex:outputText value="${!mtHrs}"/>
+                    </th>
+                    <th style="border:1px solid black;padding:10px;">
+                        <apex:outputText value="${!mdHrs}"/>
+                    </th>
+                    <th style="border:1px solid black;padding:10px;">
+                        <apex:outputText value="${!totCost}"/>
+                    </th>
+                    <th style="border:1px solid black;padding:10px;">
+                    </th>
+                </tr>
+            </table>
+            <br/><br/>
+        </apex:repeat>
+        
+        <table  style="width:100%" >
+            <tr><td style="width:12%;padding:2px"><b>Notes</b> </td></tr>
+            <tr><td style="width:6%;padding:2px">Description: </td><th style="text-align:left">{!FPA_rec.Description__c}</th></tr>
+            <tr><td style="width:12%;padding:2px">Internal Notes: </td><th style="text-align:left">{!FPA_rec.Internal_Notes__c}</th></tr>
+            
+        </table> <br/>
+        <iframe src="data:{!attch.ContentType};base64,{!pdfcontent}"  width="1200" height="5000" scrolling="false" frameBorder="0"></iframe>
+    </apex:outputPanel>
+</apex:component>

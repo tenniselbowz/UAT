@@ -1,0 +1,70 @@
+<apex:page tabStyle="Special_Feature_Option__c" lightningStyleSheets="true" sidebar="false" applyBodyTag="false" docType="html-5.0" standardController="Special_Feature_Option__c" 
+           extensions="SFO_Custom_Edit_Page_Controller" >
+    <style>
+        .floatedTable{
+        padding-top: 3px;
+        padding-bottom: 3px;
+        font-size: 100%;
+        font-family:Arial,Helvetica,sans-serif;
+        }
+        .floatLeft { width: 62%; float: left; }
+        .floatRight {width: 38%; float: right; }
+        .container { overflow: hidden; }
+    </style>
+    <apex:outputpanel id="information" rendered="{! !hasAdditionalFields}" >
+        <p>
+            No information found.
+        </p>
+    </apex:outputpanel> 
+    <apex:slds />
+    <div class="slds-scope">
+        <apex:outputpanel id="additional_info" rendered="{!hasAdditionalFields}" style="width:100%;" >
+            <div class="slds">
+                <div class="floatLeft">
+                    <tr>
+                        <table>
+                            <apex:repeat value="{!costFields}" var="f">
+                                <apex:outputPanel rendered="{!(f.sfo_dynamic_field_obj.Field_Value__c != null && f.isCostField && !f.hasHours)}">
+                                    <tr>
+                                        <td style="text-align:left;width: 28%;padding-right:10px;">
+                                            <span style="font-family: 'Salesforce Sans',Arial,sans-serif;
+                                                         color: rgb(62, 62, 60);
+                                                         font-size: .75rem;">
+                                                {!f.sfo_dynamic_field_obj.SFO_Field__r.Name}
+                                            </span>
+                                        </td>
+                                        <td class="floatedTable" style="text-align:left;padding-left:10px;" >
+                                            {!f.sfo_dynamic_field_obj.Field_Value__c}
+                                        </td>
+                                    </tr>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </table> 
+                    </tr>
+                </div>
+                <div class="floatRight">
+                    <tr>
+                        <table>
+                            <apex:repeat value="{!costFields}" var="g">
+                                <apex:outputPanel rendered="{!(g.sfo_dynamic_field_obj.Field_Value__c != null && g.isCostField && g.hasHours)}">
+                                    <tr>
+                                        <td style="text-align:left;width: 43%;padding-right:10px;">
+                                            <span style="font-family: 'Salesforce Sans',Arial,sans-serif;
+                                                         color: rgb(62, 62, 60);
+                                                         font-size: .75rem;">
+                                                {!g.sfo_dynamic_field_obj.SFO_Field__r.Name}
+                                            </span>
+                                        </td>
+                                        <td class="floatedTable" style="text-align:left;padding-left:10px;" >
+                                            {!g.sfo_dynamic_field_obj.Field_Value__c}
+                                        </td>
+                                    </tr>
+                                </apex:outputPanel>
+                            </apex:repeat>
+                        </table>
+                    </tr>
+                </div>
+            </div>
+        </apex:outputpanel>
+    </div>
+</apex:page>
